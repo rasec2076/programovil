@@ -1,7 +1,7 @@
 # 2025-1 Programación Movil - Quiz
 Este aplicativo móv- [Configuración del Ambiente de Desarrollo](#configuración-del-ambiente-de-desarrollo)
 ## Configuración del Ambiente de Desarrollo
-![img01](imgs/android.jpg)
+![img01](img/android.jpg)
 
 *Figura 1: Instalacion de Android Studio*
 
@@ -23,7 +23,7 @@ Nuestro Diagrama de despliegue muestra una arquitectura distribuida en donde el 
 
 # Diagrama de Casos de Uso:
 
-![img02](imgs/Diagrama%20de%20Casos%20de%20Uso.jpg)
+![img02](img/Diagrama%20de%20Casos%20de%20Uso.jpg)
 
 *<b>Figura 3:</b> Diagrama de Casos de Uso*
 # Descripción de Casos de Uso:
