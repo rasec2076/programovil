@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/form.dart';
 import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
-import 'package:get/get.dart';
-import 'package:prueba_seminario1/pages/login/login_controller.dart';
+
+
 
 
 class login extends StatelessWidget {
   
-  final LoginController control = Get.put(LoginController());
+  
 
   login({super.key});
   

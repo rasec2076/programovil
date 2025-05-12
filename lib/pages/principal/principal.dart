@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/pages/principal/principal_controller.dart';
 import 'package:get/get.dart';
+import 'package:prueba_seminario1/componets/card.dart';
+import 'package:prueba_seminario1/pages/modulos/modulos.dart';
 
 class Principal extends StatelessWidget {
 
+   
   final PrincipalController control = Get.put(PrincipalController());
 
-  Principal({super.key});
-  
+   Principal({super.key});
+
   @override
   Widget build(BuildContext context) {
+ 
+
     return Scaffold(
       appBar: AppBar(
   backgroundColor: Color(0xFFB8A583),
@@ -45,35 +50,14 @@ class Principal extends StatelessWidget {
           child: Column(
             children: [
               Center(
-                child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: InkWell(
-                 onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ModuleSelectionScreen()),
+                child: Cardcustom(texto1:"Aritmetica" ,textos2:"Aprende a sumar", onTap: () {
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Modulos()),
+                      
                     );
-                  },
-                  child: Container(
-                  width: 350,
-                  height: 120,
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                  children: [
-                      Icon(Icons.dashboard, size: 40),
-                      SizedBox(width: 20),
-                      Column(mainAxisAlignment: MainAxisAlignment.center
-                        ,children: [
-                        Text('Seleccionar Módulo',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-                        Text("Sección 1")
-                      ], ) 
-                  ],
-                  ),
-                  ),
-                ),
+                },),
               ),
-              )
             ],
           ),
         ),
@@ -100,43 +84,18 @@ class Principal extends StatelessWidget {
 }
 
 
-class ModuleSelectionScreen extends StatelessWidget {
-  final List<String> modules = [
-    'Módulo de Usuarios',
-    'Módulo de Ventas',
-    'Módulo de Reportes',
-    'Módulo de Inventario'
-  ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Selecciona un Módulo')),
-      body: ListView.builder(
-        itemCount: modules.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Card(child:Container(
-                  width: 350,
-                  height: 120,
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                  children: [
-                      Icon(Icons.dashboard, size: 40),
-                      SizedBox(width: 20),
-                      Text(modules[index], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  ],
-                  ),
-                  ),),
-            onTap: () {
-              // Aquí puedes hacer la navegación al módulo correspondiente
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Seleccionaste: ${modules[index]}')),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

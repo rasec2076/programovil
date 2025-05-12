@@ -1,0 +1,51 @@
+[
+
+    {
+        "id":1,
+        "nombre":"rasecml",
+        "correo":"rasec@gmail.com",
+        "contrasena":"abcdefg123456",
+        "edad":21,
+        "vidas":3,
+        "experiencia":0,
+        "nivelexperiencia":0,
+        "idgenero":1
+    },
+
+    {
+      "id":2,
+      "nombre":"bryanloa",
+      "correo":"bryan@gmail.com",
+      "contrasena":"abcdefg2345678",
+      "edad":21,
+      "vidas":3,
+      "experiencia":0,
+      "nivelexperiencia":0,
+      "idgenero":1  
+    },
+
+    {
+        "id":3,
+        "nombre":"dmitri",
+        "correo":"dmitri@gmail.com",
+        "contrasena":"abcdefg3456789",
+        "edad":21,
+        "vidas":3,
+        "experiencia":0,
+        "nivelexperiencia":0,
+        "idgenero":1 
+    },
+
+    {
+      "id":4,
+      "nombre":"javier",
+      "correo":"javier@gmail.com",
+      "contrasena":"abcdefg4567890",
+      "edad":21,
+      "vidas":3,
+      "experiencia":0,
+      "nivelexperiencia":0,
+      "idgenero":1   
+    }
+
+]

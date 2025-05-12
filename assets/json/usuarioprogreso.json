@@ -1,0 +1,44 @@
+[
+
+    {
+        "id":1,
+        "completado":false,
+        "intentos":0,
+        "idusuario":1,
+        "idnivel":1
+    },
+
+    {
+      "id":2,
+      "completado":false,
+      "intentos":0,
+      "idusuario":1,
+      "idnivel":2  
+    },
+
+    {
+        "id":3,
+        "completado":false,
+        "intentos":0,
+        "idusuario":1,
+        "idnivel":3
+    },
+
+    {
+      "id":4,
+      "completado":false,
+      "intentos":0,
+      "idusuario":1,
+      "idnivel":4  
+    },
+
+    {
+        "id":5,
+        "completado":false,
+        "intentos":0,
+        "idusuario":1,
+        "idnivel":5
+    }
+    
+    
+]

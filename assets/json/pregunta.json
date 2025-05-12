@@ -1,0 +1,39 @@
+[
+
+    {
+        "id":1,
+        "nombre":"¿Cuanto es 1 +1 ?",
+        "idnivel":1
+    },
+
+    {
+      "id":2,
+      "nombre":"¿Cuanto es 2+2?",
+      "idnivel":1
+    },
+
+    {
+        "id":3,
+        "nombre":"¿Cuanto es 3+2?",
+        "idnivel":1
+    },
+
+    {
+      "id":4,
+      "nombre":"¿Cuanto es 4+2?",
+      "idnivel":1  
+    },
+
+    {
+      "id":5,
+      "nombre":"¿Cuanto es 5+5?",
+      "idnivel":2  
+    },
+
+    {
+        "id":6,
+        "nombre":"¿Cuanto es 5+3?",
+        "idnivel":2  
+      }
+
+]

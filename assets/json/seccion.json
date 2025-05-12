@@ -1,0 +1,39 @@
+[
+
+    {
+        "id":1,
+        "nombre":"Aprende a sumar",
+        "idmodulo":1
+    },
+
+    {
+      "id":2,
+      "nombre":"Aprende a restar",
+      "idmodulo":1
+    },
+
+    {
+        "id":3,
+        "nombre":"Aprende a multiplicar",
+        "idmodulo":1
+    },
+
+    {
+      "id":4,
+      "nombre":"Aprende a dividir",
+      "idmodulo":1  
+    },
+
+    {
+      "id":5,
+      "nombre":"Aprende sobre perimetro",
+      "idmodulo":2  
+    },
+
+    {
+        "id":6,
+        "nombre":"Aprende sobre Area",
+        "idmodulo":2  
+      }
+
+]

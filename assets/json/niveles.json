@@ -1,0 +1,39 @@
+[
+
+    {
+        "id":1,
+        "nombre":"1",
+        "idseccion":1
+    },
+
+    {
+      "id":2,
+      "nombre":"2",
+      "idseccion":1
+    },
+
+    {
+        "id":3,
+        "nombre":"3",
+        "idseccion":1
+    },
+
+    {
+      "id":4,
+      "nombre":"4",
+      "idseccion":1  
+    },
+
+    {
+      "id":5,
+      "nombre":"1",
+      "idseccion":2  
+    },
+
+    {
+        "id":6,
+        "nombre":"2",
+        "idseccion":2  
+      }
+
+]
