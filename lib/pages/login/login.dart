@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/form.dart';
 import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
+import 'package:prueba_seminario1/pages/login/login_controller.dart';
+import 'package:get/get.dart';
 
 
-
-
-class login extends StatelessWidget {
+class Login extends StatelessWidget {
   
-  
+  LoginController control = Get.put(LoginController());
 
-  login({super.key});
+  Login({super.key});
   
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class login extends StatelessWidget {
                 SizedBox(height: 50,),
                 Text("Iniciar Sesión", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30)),
                 SizedBox(height: 30,),
-                FormularioDemoState(),
+                FormularioDemoState(control: control,),
                 SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

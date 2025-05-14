@@ -60,6 +60,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/json/usuario.json
+    - assets/json/modulos.json
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_ rr.jpeg

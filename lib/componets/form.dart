@@ -7,7 +7,10 @@ import 'package:get/get.dart';
 
 
 class FormularioDemoState extends StatefulWidget {
-  const FormularioDemoState({super.key});
+
+  final LoginController control;
+  
+  const FormularioDemoState({super.key, required this.control});
 
   @override
   State<FormularioDemoState> createState() => _FormularioDemoStateState();

@@ -70,7 +70,7 @@ class _FormularioRegistroStateState extends State<FormularioRegistro> {
                   );
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => login()),
+                    MaterialPageRoute(builder: (context) => Login()),
                   );
                 } 
               },)

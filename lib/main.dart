@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/configs/theme.dart';
 import 'package:prueba_seminario1/configs/util.dart';
+import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
 import 'package:prueba_seminario1/pages/inicio/inicio.dart';
+import 'package:prueba_seminario1/pages/login/login.dart';
+import 'package:prueba_seminario1/pages/principal/principal.dart';
 
 
 void main() => runApp(const MyApp());
@@ -19,8 +22,14 @@ class MyApp extends StatelessWidget {
       theme: materialTheme.light(),
       darkTheme: materialTheme.dark(),
       themeMode: ThemeMode.system,
-      home: const Inicio(),
-    );
+      initialRoute: '/inicio',
+      routes: {
+          '/inicio': (context) => Inicio(),
+          '/login': (context) => Login(),
+          '/principal': (context) => Principal(),
+          '/Registrar': (context) => Registrar(),
+        }
+      );
   }
 }
 
