@@ -8,7 +8,7 @@ class ModuloService {
     List<Modulos> modulos = [];
     ServiceHttpResponse serviceResponse = ServiceHttpResponse();
     final String body =
-        await rootBundle.loadString('assets/jsons/modulos.json');
+        await rootBundle.loadString('assets/json/modulo.json');
     final List<dynamic> data = jsonDecode(body);
     modulos =
         data.map((map) => Modulos.fromJson(map as Map<String, dynamic>)).toList();

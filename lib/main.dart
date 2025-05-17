@@ -4,6 +4,7 @@ import 'package:prueba_seminario1/configs/util.dart';
 import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
 import 'package:prueba_seminario1/pages/inicio/inicio.dart';
 import 'package:prueba_seminario1/pages/login/login.dart';
+import 'package:prueba_seminario1/pages/modulos/modulos.dart';
 import 'package:prueba_seminario1/pages/principal/principal.dart';
 
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => Login(),
           '/principal': (context) => Principal(),
           '/Registrar': (context) => Registrar(),
+          '/Modulos': (context) => ModulosPage(),
         }
       );
   }
