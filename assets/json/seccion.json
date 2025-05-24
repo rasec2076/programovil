@@ -1,39 +1,82 @@
 [
-
-    {
-        "id":1,
-        "nombre":"Aprende a sumar",
-        "idmodulo":1
-    },
-
-    {
-      "id":2,
-      "nombre":"Aprende a restar",
-      "idmodulo":1
-    },
-
-    {
-        "id":3,
-        "nombre":"Aprende a multiplicar",
-        "idmodulo":1
-    },
-
-    {
-      "id":4,
-      "nombre":"Aprende a dividir",
-      "idmodulo":1  
-    },
-
-    {
-      "id":5,
-      "nombre":"Aprende sobre perimetro",
-      "idmodulo":2  
-    },
-
-    {
-        "id":6,
-        "nombre":"Aprende sobre Area",
-        "idmodulo":2  
-      }
-
+  {
+    "id": 1,
+    "nombre": "Aprende a sumar",
+    "idmodulo": 1
+  },
+  {
+    "id": 2,
+    "nombre": "Aprende a restar",
+    "idmodulo": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Aprende a multiplicar",
+    "idmodulo": 1
+  },
+  {
+    "id": 4,
+    "nombre": "Aprende a dividir",
+    "idmodulo": 1
+  },
+  {
+    "id": 5,
+    "nombre": "Aprende sobre perímetro",
+    "idmodulo": 2
+  },
+  {
+    "id": 6,
+    "nombre": "Aprende sobre área",
+    "idmodulo": 2
+  },
+  {
+    "id": 7,
+    "nombre": "Aprende sobre figuras planas",
+    "idmodulo": 2
+  },
+  {
+    "id": 8,
+    "nombre": "Aprende sobre figuras tridimensionales",
+    "idmodulo": 2
+  },
+  {
+    "id": 9,
+    "nombre": "Aprende sobre expresiones algebraicas",
+    "idmodulo": 3
+  },
+  {
+    "id": 10,
+    "nombre": "Aprende a resolver ecuaciones",
+    "idmodulo": 3
+  },
+  {
+    "id": 11,
+    "nombre": "Aprende a usar variables",
+    "idmodulo": 3
+  },
+  {
+    "id": 12,
+    "nombre": "Aprende factorización",
+    "idmodulo": 3
+  },
+  {
+    "id": 13,
+    "nombre": "Aprende sobre ángulos",
+    "idmodulo": 4
+  },
+  {
+    "id": 14,
+    "nombre": "Aprende razones trigonométricas",
+    "idmodulo": 4
+  },
+  {
+    "id": 15,
+    "nombre": "Aprende identidades trigonométricas",
+    "idmodulo": 4
+  },
+  {
+    "id": 16,
+    "nombre": "Aprende a resolver triángulos",
+    "idmodulo": 4
+  }
 ]

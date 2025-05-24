@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_seminario1/componets/Iconobuho.dart';
 import 'package:prueba_seminario1/componets/formresgitro.dart';
 import 'package:prueba_seminario1/pages/Registrar/registrar_controller.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class Registrar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6E8BF),
+      backgroundColor: const Color(0xFFEED89B),
       body:Center(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -24,13 +25,7 @@ class Registrar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                ClipOval(child: Container(color: const Color.fromARGB(255, 42, 40, 40), width: 170,height: 170, 
-                child: Image.asset(
-                      'assets/buho2.png',
-                      fit: BoxFit.fill, 
-                    ),
-                  ),
-                ),
+                iconoBuho(),
                 SizedBox(height: 20,),
                 Text("Registro", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30)),
                 SizedBox(height: 10,),

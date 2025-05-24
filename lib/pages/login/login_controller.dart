@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prueba_seminario1/global/sesioncontroller.dart';
 import 'package:prueba_seminario1/pages/principal/principal.dart';
 import 'package:prueba_seminario1/servicios/servicioUsuario.dart';
 import 'package:prueba_seminario1/data/servicehttpresponse.dart';
@@ -10,6 +11,7 @@ class LoginController extends GetxController {
   final contrasenaController = TextEditingController();
 
   final  UsuarioService usuarios = UsuarioService();
+  final SesionController sesion = Get.put(SesionController());
 
   Future<void> login(BuildContext context) async {
     final nombre = nombreController.text.trim();
@@ -22,11 +24,11 @@ class LoginController extends GetxController {
     }else{
       if(response.status== 200){
         Usuario user = response.body;
+        sesion.setUsuario(user);
         Navigator.pushNamed(context, '/principal');
         Get.snackbar("Éxito", "Bienvenido ${user.nombre}",
           snackPosition: SnackPosition.TOP);
 
-      Get.to(() => Principal());
       }else{
         print('error en la respuesta de servidor');
       }
@@ -34,4 +36,13 @@ class LoginController extends GetxController {
 
     
   }
+
+  void irRegistro (BuildContext context){
+      Navigator.pushNamed(context, '/Registrar');
+  }
+
+  void cambiarContrasena (BuildContext context){
+      Navigator.pushNamed(context, '/Registrar');
+  }
+
 }

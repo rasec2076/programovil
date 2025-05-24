@@ -10,8 +10,8 @@ class PrincipalController extends GetxController {
 
     final SeccionService servicioSeccion = SeccionService();
     final NivelService servicioNivel = NivelService();
-    var seccion = <Seccion>[].obs;
-    var nivel = <Nivel>[].obs;
+    final seccion = <Seccion>[].obs;
+    final  nivel = <Nivel>[].obs;
 
     void initialFetchSeccion(BuildContext context) async {
     Future<ServiceHttpResponse?> response = servicioSeccion.fetchAll();
@@ -44,19 +44,36 @@ class PrincipalController extends GetxController {
     }
   }
 
-  List<Map<String, dynamic>> buildSectionedLevels() {
-  final items = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> buildSectionedLevels(int idModuloSeleccionado) {
+  List<Map<String, dynamic>> result = [];
 
-  for (var sec in seccion) {
-    items.add({"type": "section", "title": sec.nombre});
-    final nivelesDeLaSeccion = nivel.where((n) => n.idseccion == sec.id);
-    for (var nivel in nivelesDeLaSeccion) {
-      items.add({"type": "level", "data": nivel});
+  // Filtrar secciones por módulo
+  final seccionesFiltradas = seccion.where((s) => s.idmodulo == idModuloSeleccionado).toList();
+
+  for (final seccion in seccionesFiltradas) {
+    result.add({
+      "type": "section",
+      "title": seccion.nombre,
+    });
+
+    // Filtrar niveles que pertenecen a esta sección
+    final nivelesFiltrados = nivel.where((n) => n.idseccion == seccion.id).toList();
+
+    for (final nivel in nivelesFiltrados) {
+      result.add({
+        "type": "nivel",
+        "data": nivel,
+      });
     }
   }
 
-  return items;
+  return result;
+}
 
+
+  void irInicioNivel (BuildContext context, Nivel nivelData){
+      Navigator.pushNamed(context, '/inicioquiz', arguments: nivelData);
+      
   }
 
 

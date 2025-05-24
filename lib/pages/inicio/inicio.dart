@@ -12,7 +12,7 @@ class Inicio extends StatelessWidget {
       backgroundColor: const Color(0xFFEED89B),
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(40),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

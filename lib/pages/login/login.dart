@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_seminario1/componets/Iconobuho.dart';
+import 'package:prueba_seminario1/componets/divider.dart';
 import 'package:prueba_seminario1/componets/form.dart';
 import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
 import 'package:prueba_seminario1/pages/login/login_controller.dart';
@@ -14,7 +16,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6E8BF),
+      backgroundColor: const Color(0xFFEED89B),
       body:Center(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -24,17 +26,13 @@ class Login extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                ClipOval(child: Container(color: const Color.fromARGB(255, 42, 40, 40), width: 170,height: 170, 
-                child: Image.asset(
-                      'assets/buho2.png',
-                      fit: BoxFit.fill, 
-                    ),
-                  ),
-                ),
+                iconoBuho(),
                 SizedBox(height: 50,),
                 Text("Iniciar Sesión", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30)),
                 SizedBox(height: 30,),
                 FormularioDemoState(control: control,),
+                SizedBox(height: 30,),
+                DividerWithNumber(),
                 SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,15 +41,12 @@ class Login extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.black, 
                           fontWeight: FontWeight.normal,
-                          fontSize: 16
+                          fontSize: 20
                         ) 
                       ),
                     GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Registrar()),
-                    );
+                      control.irRegistro(context);
                     },
                       child: Text(
                         'Registrate Aquí',
@@ -59,7 +54,7 @@ class Login extends StatelessWidget {
                           color: Colors.black, 
                           decoration: TextDecoration.underline, 
                           fontWeight: FontWeight.bold,
-                          fontSize: 16
+                          fontSize: 20
                           ) 
                       )
                     )
@@ -74,6 +69,8 @@ class Login extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

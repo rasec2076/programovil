@@ -29,7 +29,7 @@ class _FormularioRegistroStateState extends State<FormularioRegistro> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xFFB8A583),
+        color: Color(0xFFDABD87),
       ),
       child: Form(
         key: _formKey,

@@ -1,39 +1,97 @@
 [
+  { "id": 1, "nombre": "1", "idseccion": 1 },
+  { "id": 2, "nombre": "2", "idseccion": 1 },
+  { "id": 3, "nombre": "3", "idseccion": 1 },
+  { "id": 4, "nombre": "4", "idseccion": 1 },
+  { "id": 5, "nombre": "5", "idseccion": 1 },
 
-    {
-        "id":1,
-        "nombre":"1",
-        "idseccion":1
-    },
+  { "id": 6, "nombre": "1", "idseccion": 2 },
+  { "id": 7, "nombre": "2", "idseccion": 2 },
+  { "id": 8, "nombre": "3", "idseccion": 2 },
+  { "id": 9, "nombre": "4", "idseccion": 2 },
+  { "id": 10, "nombre": "5", "idseccion": 2 },
 
-    {
-      "id":2,
-      "nombre":"2",
-      "idseccion":1
-    },
+  { "id": 11, "nombre": "1", "idseccion": 3 },
+  { "id": 12, "nombre": "2", "idseccion": 3 },
+  { "id": 13, "nombre": "3", "idseccion": 3 },
+  { "id": 14, "nombre": "4", "idseccion": 3 },
+  { "id": 15, "nombre": "5", "idseccion": 3 },
 
-    {
-        "id":3,
-        "nombre":"3",
-        "idseccion":1
-    },
+  { "id": 16, "nombre": "1", "idseccion": 4 },
+  { "id": 17, "nombre": "2", "idseccion": 4 },
+  { "id": 18, "nombre": "3", "idseccion": 4 },
+  { "id": 19, "nombre": "4", "idseccion": 4 },
+  { "id": 20, "nombre": "5", "idseccion": 4 },
 
-    {
-      "id":4,
-      "nombre":"4",
-      "idseccion":1  
-    },
+  { "id": 21, "nombre": "1", "idseccion": 5 },
+  { "id": 22, "nombre": "2", "idseccion": 5 },
+  { "id": 23, "nombre": "3", "idseccion": 5 },
+  { "id": 24, "nombre": "4", "idseccion": 5 },
+  { "id": 25, "nombre": "5", "idseccion": 5 },
 
-    {
-      "id":5,
-      "nombre":"1",
-      "idseccion":2  
-    },
+  { "id": 26, "nombre": "1", "idseccion": 6 },
+  { "id": 27, "nombre": "2", "idseccion": 6 },
+  { "id": 28, "nombre": "3", "idseccion": 6 },
+  { "id": 29, "nombre": "4", "idseccion": 6 },
+  { "id": 30, "nombre": "5", "idseccion": 6 },
 
-    {
-        "id":6,
-        "nombre":"2",
-        "idseccion":2  
-      }
+  { "id": 31, "nombre": "1", "idseccion": 7 },
+  { "id": 32, "nombre": "2", "idseccion": 7 },
+  { "id": 33, "nombre": "3", "idseccion": 7 },
+  { "id": 34, "nombre": "4", "idseccion": 7 },
+  { "id": 35, "nombre": "5", "idseccion": 7 },
 
+  { "id": 36, "nombre": "1", "idseccion": 8 },
+  { "id": 37, "nombre": "2", "idseccion": 8 },
+  { "id": 38, "nombre": "3", "idseccion": 8 },
+  { "id": 39, "nombre": "4", "idseccion": 8 },
+  { "id": 40, "nombre": "5", "idseccion": 8 },
+
+  { "id": 41, "nombre": "1", "idseccion": 9 },
+  { "id": 42, "nombre": "2", "idseccion": 9 },
+  { "id": 43, "nombre": "3", "idseccion": 9 },
+  { "id": 44, "nombre": "4", "idseccion": 9 },
+  { "id": 45, "nombre": "5", "idseccion": 9 },
+
+  { "id": 46, "nombre": "1", "idseccion": 10 },
+  { "id": 47, "nombre": "2", "idseccion": 10 },
+  { "id": 48, "nombre": "3", "idseccion": 10 },
+  { "id": 49, "nombre": "4", "idseccion": 10 },
+  { "id": 50, "nombre": "5", "idseccion": 10 },
+
+  { "id": 51, "nombre": "1", "idseccion": 11 },
+  { "id": 52, "nombre": "2", "idseccion": 11 },
+  { "id": 53, "nombre": "3", "idseccion": 11 },
+  { "id": 54, "nombre": "4", "idseccion": 11 },
+  { "id": 55, "nombre": "5", "idseccion": 11 },
+
+  { "id": 56, "nombre": "1", "idseccion": 12 },
+  { "id": 57, "nombre": "2", "idseccion": 12 },
+  { "id": 58, "nombre": "3", "idseccion": 12 },
+  { "id": 59, "nombre": "4", "idseccion": 12 },
+  { "id": 60, "nombre": "5", "idseccion": 12 },
+
+  { "id": 61, "nombre": "1", "idseccion": 13 },
+  { "id": 62, "nombre": "2", "idseccion": 13 },
+  { "id": 63, "nombre": "3", "idseccion": 13 },
+  { "id": 64, "nombre": "4", "idseccion": 13 },
+  { "id": 65, "nombre": "5", "idseccion": 13 },
+
+  { "id": 66, "nombre": "1", "idseccion": 14 },
+  { "id": 67, "nombre": "2", "idseccion": 14 },
+  { "id": 68, "nombre": "3", "idseccion": 14 },
+  { "id": 69, "nombre": "4", "idseccion": 14 },
+  { "id": 70, "nombre": "5", "idseccion": 14 },
+
+  { "id": 71, "nombre": "1", "idseccion": 15 },
+  { "id": 72, "nombre": "2", "idseccion": 15 },
+  { "id": 73, "nombre": "3", "idseccion": 15 },
+  { "id": 74, "nombre": "4", "idseccion": 15 },
+  { "id": 75, "nombre": "5", "idseccion": 15 },
+
+  { "id": 76, "nombre": "1", "idseccion": 16 },
+  { "id": 77, "nombre": "2", "idseccion": 16 },
+  { "id": 78, "nombre": "3", "idseccion": 16 },
+  { "id": 79, "nombre": "4", "idseccion": 16 },
+  { "id": 80, "nombre": "5", "idseccion": 16 }
 ]

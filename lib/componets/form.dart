@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 
 
 
-class FormularioDemoState extends StatefulWidget {
 
+class FormularioDemoState extends StatefulWidget {
   final LoginController control;
-  
+
   const FormularioDemoState({super.key, required this.control});
 
   @override
@@ -17,37 +17,81 @@ class FormularioDemoState extends StatefulWidget {
 }
 
 class _FormularioDemoStateState extends State<FormularioDemoState> {
-
   final LoginController control = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      padding: const EdgeInsets.all(20),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Color(0xFFB8A583),
+        color: const Color(0xFFDABD87), // Fondo similar al de la imagen
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Nombre:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),),
-            SizedBox(height: 2,),
-            textfieldcustom(controller: control.nombreController, tipo:TextInputType.text,),
+            const Text(
+              "Usuario",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: textfieldcustom(
+                controller: control.nombreController,
+                tipo: TextInputType.text,
+              ),
+            ),
             const SizedBox(height: 15),
-            Text("Contraseña:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 2,),
-            textfieldcustom(controller: control.contrasenaController, tipo:TextInputType.text),
+            const Text(
+              "Contraseña",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: textfieldcustom(
+                controller: control.contrasenaController,
+                tipo: TextInputType.text,
+              ),
+            ),
             const SizedBox(height: 20),
-            boton(data: "Ingresar",   
-            onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                      control.login(context);
-                }
-              },
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: boton(data:"Ingresar", onPressed: () {
+                  control.login(context);
+              }, )),
+            const SizedBox(height: 12),
+            Center(
+              child: GestureDetector(
+                    onTap: () {
+                      control.cambiarContrasena(context);
+                    },
+                      child: Text(
+                        '¿Olvidaste tu contraseña?',
+                        style: TextStyle(
+                          color: Colors.black,  
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
+                          ) 
+                      )
+                    )
             )
           ],
         ),
@@ -55,4 +99,5 @@ class _FormularioDemoStateState extends State<FormularioDemoState> {
     );
   }
 }
+
 

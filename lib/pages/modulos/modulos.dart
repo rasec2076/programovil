@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prueba_seminario1/componets/card.dart';
 import 'package:prueba_seminario1/pages/modulos/modulos_controller.dart';
-import 'package:prueba_seminario1/pages/principal/principal.dart';
+
 
 class ModulosPage extends StatefulWidget {
   @override
@@ -13,7 +13,6 @@ class _ModulosState extends State<ModulosPage> {
   
   ModulosController control = Get.put(ModulosController());
 
-  int? _selectedIndex; // Track selected card
 
   @override
   Widget build(BuildContext context) {

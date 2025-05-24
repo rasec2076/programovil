@@ -1,8 +1,6 @@
-import "package:flutter/material.dart";
-
+import 'package:flutter/material.dart';
 
 class boton extends StatelessWidget {
-
   final String data;
   final VoidCallback? onPressed;
 
@@ -14,13 +12,29 @@ class boton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onPressed, 
-    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),padding: EdgeInsets.symmetric(horizontal:110, vertical: 15 ), backgroundColor: const Color.fromARGB(225, 1, 0, 0)), 
-    child: Text(data, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20, color: Colors.white), ));
+    return SizedBox(
+      width: double.infinity, // Ocupa todo el ancho del contenedor padre
+      height: 60,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          elevation: 1,
+        ),
+        child: Text(
+          data,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
-
-
-
 }
 
 
