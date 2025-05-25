@@ -26,7 +26,7 @@ class Registrar extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 iconoBuho(),
-                SizedBox(height: 20,),
+                SizedBox(height: 10,),
                 Text("Registro", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30)),
                 SizedBox(height: 10,),
                 FormularioRegistro(),

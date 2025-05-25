@@ -44,7 +44,7 @@ class _PrincipalState extends State<Principal> {
               children: [
                 Image.asset("assets/buho3.png", width: 40, height: 40),
                 const SizedBox(width: 5),
-                Text(user!.experiencia.toString(), style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                Text("nivel ${user!.nivelexperiencia.toString()}", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
               ],
             ),
             Row(

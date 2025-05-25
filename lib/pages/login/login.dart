@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/Iconobuho.dart';
 import 'package:prueba_seminario1/componets/divider.dart';
 import 'package:prueba_seminario1/componets/form.dart';
-import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
 import 'package:prueba_seminario1/pages/login/login_controller.dart';
 import 'package:get/get.dart';
 
