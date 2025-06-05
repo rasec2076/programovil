@@ -6,6 +6,7 @@ import 'package:prueba_seminario1/data/respuesta.dart';
 import 'package:prueba_seminario1/data/seccion.dart';
 import 'package:prueba_seminario1/data/servicehttpresponse.dart';
 import 'package:prueba_seminario1/data/usuario.dart';
+import 'package:prueba_seminario1/data/usuarioprogreso.dart';
 import 'package:prueba_seminario1/servicios/servicioPreguntas.dart';
 import 'package:prueba_seminario1/servicios/servicioRespuestas.dart';
 
@@ -20,6 +21,7 @@ class CuestionariosController extends GetxController {
     var mostrarFeedback = false.obs; // controla la visibilida
     var respuestaSeleccionada = Rxn<Respuesta>(); // para guardar la respuesta seleccionada
     var preguntaActual = 0.obs; // índice actual de pregunta  
+    var aciertos = 0;
     Respuesta? respuestaCorrecta;
 
 
@@ -64,7 +66,7 @@ class CuestionariosController extends GetxController {
   }
 
 
-  void siguientePregunta(BuildContext context, List<Map<String, dynamic>> preguntasConRespuestas, Usuario? user) {
+  void siguientePregunta(BuildContext context, List<Map<String, dynamic>> preguntasConRespuestas, Usuario? user, UsuarioProgreso progress) {
   final seleccionada = respuestaSeleccionada.value;
 
   if (seleccionada == null) {
@@ -79,27 +81,33 @@ class CuestionariosController extends GetxController {
   }
 
   final respuestas = preguntasConRespuestas[preguntaActual.value]["respuestas"] as List<Respuesta>;
-  respuestaCorrecta = respuestas.firstWhere((r) => r.correcta == true);
+  respuestas.firstWhere((r) => r.correcta == true);
 
   estadoRespuesta = seleccionada.correcta;
   mostrarFeedback.value = true;
 
-  estadoRespuesta= seleccionada.correcta;
-  mostrarFeedback.value = true;
+   // Incrementar aciertos si es correcta la respuesta
+  if (seleccionada.correcta) {
+    progress.aciertos += 1;
+  }
+  
 }
 
-void continuar(BuildContext context, List<Map<String, dynamic>> preguntasConRespuestas, Usuario? user) {
+void continuar(BuildContext context, List<Map<String, dynamic>> preguntasConRespuestas, Usuario? user, UsuarioProgreso progress) {
   final respuesta = estadoRespuesta ;
 
   if (respuesta == false ) {
     user!.vidas -= 1;
+    
   }
 
   if (user!.vidas == 0) {
     user.vidas = 3;
     preguntaActual.value = 0;
     mostrarFeedback.value = false;
-    Navigator.pushNamed(context, '/fincuestionario');
+    progress.completado = false;
+    progress.aciertos = 0;
+    Navigator.pushNamed(context, '/fincuestionario', arguments: progress);
     return;
   }
 
@@ -109,9 +117,12 @@ void continuar(BuildContext context, List<Map<String, dynamic>> preguntasConResp
     mostrarFeedback.value = false;
   } else {
     user.vidas = 3;
+    progress.completado=true;
     preguntaActual.value = 0;
     mostrarFeedback.value = false;
-    Navigator.pushNamed(context, '/cuestionariocorrecto');
+    final experienciaGanada = progress.aciertos*20;
+    user.experiencia= user.experiencia+experienciaGanada;
+    Navigator.pushNamed(context, '/cuestionariocorrecto',arguments: {"progreso":progress, "experiencia":experienciaGanada} );
   }
 }
 
@@ -175,7 +186,7 @@ void confirmarSalida(BuildContext context) async {
   if (salir == true) {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      '/principal',
+      '/Home',
       (route) => false,
     );
   }

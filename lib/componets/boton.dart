@@ -18,7 +18,7 @@ class boton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0XFF2C2C2C),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),

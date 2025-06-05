@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/boton.dart';
 import 'package:prueba_seminario1/componets/opcion.dart';
 import 'package:prueba_seminario1/data/usuario.dart';
+import 'package:prueba_seminario1/data/usuarioprogreso.dart';
 import 'package:prueba_seminario1/pages/cuestionarios/cuestionarios_controller.dart';
 import 'package:get/get.dart';
 import 'package:prueba_seminario1/global/sesioncontroller.dart';
@@ -22,16 +23,17 @@ class _CuestionariosState extends State<Cuestionarios> {
     final Usuario? user = sesion.getUsuario;
 
     final args = ModalRoute.of(context)?.settings.arguments;
-    final List<Map<String, dynamic>> preguntasConRespuestas =
-        (args is List<Map<String, dynamic>>) ? args : [];
+    if (args == null || args is! Map<String, dynamic>) {
+  return const Scaffold(
+    body: Center(
+      child: Text('❌ No hay datos para este nivel'),
+    ),
+  );
+}
+    
+    final List<Map<String, dynamic>> preguntasConRespuestas = args["preguntas"];
+    final UsuarioProgreso progress = args["progreso"] ;
 
-    if (preguntasConRespuestas.isEmpty) {
-      return const Scaffold(
-        body: Center(
-          child: Text('❌ No hay preguntas para este nivel'),
-        ),
-      );
-    }
 
     return WillPopScope(
       onWillPop: () async {
@@ -105,7 +107,7 @@ class _CuestionariosState extends State<Cuestionarios> {
                             data: 'Confirmar',
                             onPressed: () {
                               control.siguientePregunta(
-                                  context, preguntasConRespuestas, user);
+                                  context, preguntasConRespuestas, user, progress);
                             },
                           );
                         } else {
@@ -140,7 +142,7 @@ class _CuestionariosState extends State<Cuestionarios> {
                           boton(
                             onPressed: () {
                               control.continuar(
-                                  context, preguntasConRespuestas, user);
+                                  context, preguntasConRespuestas, user, progress);
                             },
                             data: "Continuar",
                           ),

@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "nombre": "Maestro en sumas",
+    "descripcion": "Completaste la sección: Aprende a sumar",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/suma.png"
+  },
+  {
+    "id": 2,
+    "nombre": "Dominaste las restas",
+    "descripcion": "Completaste la sección: Aprende a restar",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/resta.png"
+  },
+  {
+    "id": 3,
+    "nombre": "Multiplicador experto",
+    "descripcion": "Completaste la sección: Aprende a multiplicar",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/multiplicacion.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Divisor preciso",
+    "descripcion": "Completaste la sección: Aprende a dividir",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/division.png"
+  },
+  {
+    "id": 5,
+    "nombre": "Perimetrista destacado",
+    "descripcion": "Completaste la sección: Aprende sobre perímetro",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/perimetro.png"
+  },
+  {
+    "id": 6,
+    "nombre": "Dueño del área",
+    "descripcion": "Completaste la sección: Aprende sobre área",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/area.png"
+  },
+  {
+    "id": 7,
+    "nombre": "Experto en figuras planas",
+    "descripcion": "Completaste la sección: Aprende sobre figuras planas",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/figuras-planas.png"
+  },
+  {
+    "id": 8,
+    "nombre": "Conquistador de lo tridimensional",
+    "descripcion": "Completaste la sección: Aprende sobre figuras tridimensionales",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/figuras-3d.png"
+  },
+  {
+    "id": 9,
+    "nombre": "Expresionista algebraico",
+    "descripcion": "Completaste la sección: Aprende sobre expresiones algebraicas",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/expresiones.png"
+  },
+  {
+    "id": 10,
+    "nombre": "Ecuacionista experto",
+    "descripcion": "Completaste la sección: Aprende a resolver ecuaciones",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/ecuaciones.png"
+  },
+  {
+    "id": 11,
+    "nombre": "Maestro de las variables",
+    "descripcion": "Completaste la sección: Aprende a usar variables",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/variables.png"
+  },
+  {
+    "id": 12,
+    "nombre": "Factorizador estrella",
+    "descripcion": "Completaste la sección: Aprende factorización",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/factorizacion.png"
+  },
+  {
+    "id": 13,
+    "nombre": "Ángulo agudo",
+    "descripcion": "Completaste la sección: Aprende sobre ángulos",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/angulos.png"
+  },
+  {
+    "id": 14,
+    "nombre": "Rey de las razones",
+    "descripcion": "Completaste la sección: Aprende razones trigonométricas",
+    "tipo": "medalla",
+
+    "imagen": "https://tusitio.com/insignias/razones.png"
+  },
+  {
+    "id": 15,
+    "nombre": "Dominador de identidades",
+    "descripcion": "Completaste la sección: Aprende identidades trigonométricas",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/identidades.png"
+  },
+  {
+    "id": 16,
+    "nombre": "Resuelve triángulos como un ninja",
+    "descripcion": "Completaste la sección: Aprende a resolver triángulos",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/triangulos.png"
+  },
+
+  {
+    "id": 17,
+    "nombre": "Campeón en Aritmética",
+    "descripcion": "Completaste todas las secciones del módulo Aritmética",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/aritmetica.png"
+  },
+  {
+    "id": 18,
+    "nombre": "Maestro de la Geometría",
+    "descripcion": "Completaste todas las secciones del módulo Geometría",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/geometria.png"
+  },
+  {
+    "id": 19,
+    "nombre": "Genio del Álgebra",
+    "descripcion": "Completaste todas las secciones del módulo Álgebra",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/algebra.png"
+  },
+  {
+    "id": 20,
+    "nombre": "Rey de la Trigonometría",
+    "descripcion": "Completaste todas las secciones del módulo Trigonometría",
+    "tipo": "medalla",
+    "imagen": "https://tusitio.com/insignias/trigonometria.png"
+  },
+
+
+
+
+
+
+  {
+    "id": 21,
+    "nombre": "Primer nivel completo",
+    "descripcion": "Completaste tu primer nivel",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/primer-nivel.png"
+  },
+  {
+    "id": 22,
+    "nombre": "Cero errores",
+    "descripcion": "Completaste un nivel con 0 errores",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/cero-errores.png"
+  },
+  {
+    "id": 23,
+    "nombre": "Persistente",
+    "descripcion": "Completaste un nivel después de más de 3 intentos",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/persistente.png"
+  },
+  {
+    "id": 24,
+    "nombre": "Acierto perfecto",
+    "descripcion": "Lograste 100% de aciertos en un nivel",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/perfecto.png"
+  },
+  {
+    "id": 25,
+    "nombre": "¡Velocidad matemática!",
+    "descripcion": "Completaste un nivel en menos de 30 segundos",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/veloz.png"
+  },
+  {
+    "id": 26,
+    "nombre": "Primer error... pero seguiste",
+    "descripcion": "Fallaste en tu primer intento pero completaste el nivel",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/sigues-intentando.png"
+  },
+  {
+    "id": 27,
+    "nombre": "Cazador de niveles",
+    "descripcion": "Completaste 5 niveles distintos",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/5-niveles.png"
+  },
+  {
+    "id": 28,
+    "nombre": "Sin miedo al error",
+    "descripcion": "Acumulaste más de 10 errores en total",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/errores.png"
+  },
+  {
+    "id": 29,
+    "nombre": "10 intentos acumulados",
+    "descripcion": "Acumulaste al menos 10 intentos entre todos los niveles",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/10-intentos.png"
+  },
+  {
+    "id": 30,
+    "nombre": "Aciertos acumulados",
+    "descripcion": "Sumaste más de 50 aciertos en total",
+    "tipo": "logro",
+    "imagen": "https://tusitio.com/insignias/50-aciertos.png"
+  }
+
+
+]

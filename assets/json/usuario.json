@@ -19,7 +19,7 @@
       "contrasena":"abcdefg2345678",
       "edad":21,
       "vidas":3,
-      "experiencia":0,
+      "experiencia":30,
       "nivelexperiencia":0,
       "idgenero":1  
     },
@@ -43,7 +43,19 @@
       "contrasena":"abcdefg4567890",
       "edad":21,
       "vidas":3,
-      "experiencia":0,
+      "experiencia":300,
+      "nivelexperiencia":0,
+      "idgenero":1   
+    },
+
+    {
+      "id":5,
+      "nombre":"usuarioXD",
+      "correo":"javier@gmail.com",
+      "contrasena":"abcdefg4567890",
+      "edad":21,
+      "vidas":3,
+      "experiencia":50,
       "nivelexperiencia":0,
       "idgenero":1   
     }

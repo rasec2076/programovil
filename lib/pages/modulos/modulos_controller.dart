@@ -31,7 +31,7 @@ class ModulosController extends GetxController {
   
     if (modulo != null){
           seleccionado.value= modulo;
-          Navigator.pushReplacementNamed(context, '/principal');
+          Navigator.pushReplacementNamed(context, '/Home');
           print(
           "Distrito seleccionado: ${seleccionado.value!.id} - ${seleccionado.value!.nombre}");
     }else{

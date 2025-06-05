@@ -19,4 +19,32 @@ class RespuestaService {
     serviceResponse.body = respuestas;
     return serviceResponse;
   }
+
+  Future<ServiceHttpResponse?> findAllRespuestasPorPregunta(int idpregunta) async {
+  List<Respuesta> todasLasRespuestas = [];
+  ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+
+  final String body = await rootBundle.loadString('assets/json/respuesta.json');
+  final List<dynamic> data = jsonDecode(body);
+
+  // Convertir JSON a objetos Pregunta
+  todasLasRespuestas = data
+      .map((map) => Respuesta.fromJson(map as Map<String, dynamic>))
+      .toList();
+
+  // Filtrar preguntas por nivel
+  List<Respuesta> respuestasFiltradas = todasLasRespuestas
+      .where((respuesta) => respuesta.idPregunta == idpregunta)
+      .toList();
+
+  if (respuestasFiltradas.isEmpty) {
+    serviceResponse.status = 404;
+    serviceResponse.body = [];
+  } else {
+    serviceResponse.status = 200;
+    serviceResponse.body = respuestasFiltradas;
+  }
+
+  return serviceResponse;
+}
 }

@@ -7,6 +7,7 @@ import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
 import 'package:prueba_seminario1/pages/cuestionariocorrecto/cuestionariocorrecto.dart';
 import 'package:prueba_seminario1/pages/cuestionarios/cuestionarios.dart';
 import 'package:prueba_seminario1/pages/fincuestionarios/fincuestionarios.dart';
+import 'package:prueba_seminario1/pages/home/home.dart';
 import 'package:prueba_seminario1/pages/inicio/inicio.dart';
 import 'package:prueba_seminario1/pages/login/login.dart';
 import 'package:prueba_seminario1/pages/modulos/modulos.dart';
@@ -26,13 +27,13 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Material App',
-      theme: materialTheme.light(),
       darkTheme: materialTheme.dark(),
       themeMode: ThemeMode.system,
       initialRoute: '/inicio',
       routes: {
           '/inicio': (context) => Inicio(),
           '/login': (context) => Login(),
+          '/Home': (context) => MiHomePage(),
           '/principal': (context) => Principal(),
           '/Registrar': (context) => Registrar(),
           '/Modulos': (context) => ModulosPage(),

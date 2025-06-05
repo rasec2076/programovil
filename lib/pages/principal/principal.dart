@@ -26,6 +26,9 @@ class _PrincipalState extends State<Principal> {
     control1.initialFetch(context);
     control.initialFetchSeccion(context);
     control.initialFetchNivel(context);
+    final idModulo = control1.seleccionado.value?.id ?? 1;
+    control.cargarItems(idModulo);
+    
   }
   
 
@@ -80,8 +83,11 @@ class _PrincipalState extends State<Principal> {
                     
                     Expanded(
                       child: Obx(() {
-                        final idModulo = control1.seleccionado.value?.id??1 ;
-                        final items = control.buildSectionedLevels(idModulo);// Aquí usas la función combinada
+                        final items = control.items;
+                        if (items.isEmpty) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        // Aquí usas la función combinada
                         return ListView.builder(
                           itemCount: items.length,
                           itemBuilder: (context, index) {
@@ -130,14 +136,6 @@ class _PrincipalState extends State<Principal> {
                 ),
               ),
             ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFFDABD87),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Niveles'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
-          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Insignias'),
-        ],
-      ),
     );
   }
 }

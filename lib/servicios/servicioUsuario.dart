@@ -32,6 +32,26 @@ class UsuarioService {
     // fin logica servidorv
     return serviceResponse;
   }
+
+    Future<ServiceHttpResponse?> fetchAllusuarios() async {
+    List<Usuario> usuarios = [];
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+
+    final String body =
+        await rootBundle.loadString('assets/json/usuario.json');
+
+    final List<dynamic> data = jsonDecode(body);
+    usuarios =
+        data.map((map) => Usuario.fromJson(map as Map<String, dynamic>)).toList();
+
+    serviceResponse.status = 200;
+    print(usuarios); // Para verificar en consola
+    serviceResponse.body = usuarios;
+
+    return serviceResponse;
+  }
+
+  
 }
 
 /* 

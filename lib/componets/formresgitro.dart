@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/boton.dart';
 import 'package:prueba_seminario1/componets/textfield.dart';
 import 'package:prueba_seminario1/componets/dropdownbutton.dart';
+import 'package:prueba_seminario1/pages/Registrar/registrar_controller.dart';
 import 'package:prueba_seminario1/pages/login/login.dart';
+import 'package:get/get.dart';
 
 
 class FormularioRegistro extends StatefulWidget {
-  const FormularioRegistro({super.key});
+  final RegistrarController control;
+  const FormularioRegistro({super.key, required this.control});
 
  
 
@@ -16,13 +19,9 @@ class FormularioRegistro extends StatefulWidget {
 }
 
 class _FormularioRegistroStateState extends State<FormularioRegistro> {
+  final RegistrarController control = Get.put(RegistrarController());
   final _formKey = GlobalKey<FormState>();
-  final _nombreController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _edadController = TextEditingController();
-  String? Genero;
-
+  
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -38,28 +37,28 @@ class _FormularioRegistroStateState extends State<FormularioRegistro> {
           children: [
             Text("Usuario:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),),
             SizedBox(height: 2,),
-            textfieldcustom(controller: _nombreController, tipo:TextInputType.text,),
+            textfieldcustom(controller: control.nombreController, tipo:TextInputType.text,),
             const SizedBox(height: 10),
             Text("Correo:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold)),
             SizedBox(height: 2,),
-            textfieldcustom(controller: _emailController, tipo:TextInputType.emailAddress),
+            textfieldcustom(controller: control.emailController, tipo:TextInputType.emailAddress),
             const SizedBox(height: 10),
             Text("Contraseña:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold)),
             SizedBox(height: 2,),
-            textfieldcustom(controller: _passwordController, tipo:TextInputType.text),
+            textfieldcustom(controller: control.passwordController, tipo:TextInputType.text),
             const SizedBox(height: 10),
             Text("Edad:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold)),
             SizedBox(height: 2,),
-            textfieldcustom(controller: _edadController, tipo:TextInputType.number),
+            textfieldcustom(controller: control.edadController, tipo:TextInputType.number),
             const SizedBox(height: 10),
             Text("Género:", textAlign: TextAlign.start, style: TextStyle(fontSize:20, fontWeight: FontWeight.bold)),
             DropDownButton(valores: ["Masculino", "Feminino"], 
                           cambio: (valor){
                             setState(() {
-                              Genero = valor;
+                              control.Genero = valor;
                             });
                           } , 
-                          valorSeleccionado: Genero ,
+                          valorSeleccionado: control.Genero ,
                           ),
             const SizedBox(height: 20),
             boton(data: "Registrar", onPressed: () {

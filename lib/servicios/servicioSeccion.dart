@@ -21,7 +21,7 @@ class SeccionService {
     return serviceResponse;
   }
 
- Future<ServiceHttpResponse?> findAll(int idmodulo) async {
+Future<ServiceHttpResponse?> findAllSecciones(int idmodulo) async {
   List<Seccion> todasLasSecciones = [];
   ServiceHttpResponse serviceResponse = ServiceHttpResponse();
 
@@ -31,15 +31,15 @@ class SeccionService {
 
   // Filtrar solo las secciones del módulo que coincide con idmodulo
   List<Seccion> seccionesFiltradas = todasLasSecciones
-      .where((sec) => sec.idmodulo == idmodulo)
+      .where((seccion) => seccion.idmodulo == idmodulo)
       .toList();
 
   if (seccionesFiltradas.isEmpty) {
     serviceResponse.status = 404;
-    serviceResponse.body = []; // No se encontraron secciones
+    serviceResponse.body = [];
   } else {
     serviceResponse.status = 200;
-    serviceResponse.body = seccionesFiltradas; // Solo secciones que pertenecen al módulo
+    serviceResponse.body = seccionesFiltradas;
   }
 
   return serviceResponse;

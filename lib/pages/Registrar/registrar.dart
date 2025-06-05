@@ -29,7 +29,7 @@ class Registrar extends StatelessWidget {
                 SizedBox(height: 10,),
                 Text("Registro", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 30)),
                 SizedBox(height: 10,),
-                FormularioRegistro(),
+                FormularioRegistro(control: control,),
                 
               ],
               

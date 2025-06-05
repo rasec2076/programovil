@@ -25,7 +25,7 @@ class LoginController extends GetxController {
       if(response.status== 200){
         Usuario user = response.body;
         sesion.setUsuario(user);
-        Navigator.pushNamed(context,'/principal');
+        Navigator.pushNamed(context,'/Home');
         Get.snackbar("Éxito", "Bienvenido ${user.nombre}",
           snackPosition: SnackPosition.TOP);
 

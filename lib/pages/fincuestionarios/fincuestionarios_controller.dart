@@ -7,7 +7,7 @@ class FincuestionariosController extends GetxController {
 
 
   void irPrincipal (BuildContext context){
-      Navigator.pushNamed(context, '/principal');
+      Navigator.pushNamed(context, '/Home');
   }
 
 

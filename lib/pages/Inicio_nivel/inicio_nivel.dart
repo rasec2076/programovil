@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/boton.dart';
 import 'package:prueba_seminario1/data/nivel.dart';
+import 'package:prueba_seminario1/data/usuario.dart';
+import 'package:prueba_seminario1/global/sesioncontroller.dart';
 import 'package:prueba_seminario1/pages/Inicio_nivel/inicio_nivel_controller.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +19,8 @@ class InicioNivel extends StatelessWidget {
   control.initialFetchPregunta(context);
   control.initialFetchRespuesta(context);
   final nivelData = ModalRoute.of(context)!.settings.arguments as Nivel;
+  final SesionController sesion = Get.find<SesionController>();
+  final Usuario? user = sesion.getUsuario;
    return  Scaffold(
       backgroundColor: const Color(0xFFEED89B),
       body: Center(
@@ -42,7 +46,7 @@ class InicioNivel extends StatelessWidget {
               boton(
                 data: "Empezar",
                 onPressed: () {
-                  control.irNivel(context,nivelData);
+                  control.irNivel(context,nivelData, user);
                 },
               ),
               SizedBox(height: 20,),

@@ -22,25 +22,24 @@ class NivelService {
     return serviceResponse;
   }
 
-  Future<ServiceHttpResponse?> findAll(int idseccion) async {
-  List<Nivel> todasLasSecciones = [];
+Future<ServiceHttpResponse?> findAllNiveles(int idseccion) async {
+  List<Nivel> todosLosNiveles = [];
   ServiceHttpResponse serviceResponse = ServiceHttpResponse();
 
   final String body = await rootBundle.loadString('assets/json/niveles.json');
   final List<dynamic> data = jsonDecode(body);
-  todasLasSecciones = data.map((map) => Nivel.fromJson(map as Map<String, dynamic>)).toList();
+  todosLosNiveles = data.map((map) => Nivel.fromJson(map as Map<String, dynamic>)).toList();
 
-  // Filtrar solo las secciones del módulo que coincide con idmodulo
-  List<Nivel> nivelesfiltrados = todasLasSecciones
+  List<Nivel> nivelesFiltrados = todosLosNiveles
       .where((nivel) => nivel.idseccion == idseccion)
       .toList();
 
-  if (nivelesfiltrados.isEmpty) {
+  if (nivelesFiltrados.isEmpty) {
     serviceResponse.status = 404;
-    serviceResponse.body = []; // No se encontraron secciones
+    serviceResponse.body = [];
   } else {
     serviceResponse.status = 200;
-    serviceResponse.body = nivelesfiltrados; // Solo secciones que pertenecen al módulo
+    serviceResponse.body = nivelesFiltrados;
   }
 
   return serviceResponse;
