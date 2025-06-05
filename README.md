@@ -19,7 +19,29 @@ Nuestro Diagrama de despliegue muestra una arquitectura distribuida en donde el 
 
 
 # Requerimientos No funcionales:
-.
+Los requerimientos no funcionales definen las características de calidad que debe cumplir el aplicativo móvil AprendeMath para garantizar su correcto funcionamiento durante el desarrollo y evaluación académica.
+
+- **Seguridad:**  
+  Toda comunicación entre el móvil y el backend deben realizarse mediante el protocolo **HTTPS** garantizando la integridad y confidencialidad de los datos. Las credenciales del usuario, especialmente las contraseñas, serán cifradas. Adicionalmente se implementarán sistemas de autenticación y validación entre sesiones.
+
+- **Rendimiento:**  
+  El tiempo de respuesta de operaciones críticas (**inicio de sesión**, **carga de módulos**, **respuestas a cuestionarios**) no debe exceder los **5 segundos** bajo condiciones normales de conectividad. Asimismo, el tiempo de renderizado de las vistas principales no debe exceder **2 segundos** desde la interacción del usuario.
+
+
+- **Disponibilidad:**  
+  La aplicación debe garantizar una disponibilidad de al menos **99%** durante periodos normales. En caso de fallos, se debe tener la opción de realizar **reinicios manuales** en el backend para minimizar el tiempo de inactividad.
+
+- **Usabilidad:**  
+  El proceso de registro de un nuevo usuario será intuitivo, completándose en menos de **3 minutos**. Un usuario nuevo debe ser capaz de iniciar y completar su primer cuestionario en menos de **6 minutos** desde el momento de la instalación sin necesidad de asistencia externa. La navegación será fluida y con retroalimentación clara en todas las acciones.
+
+- **Compatibilidad:**  
+  La aplicación funcionará en dispositivos móviles con sistema operativo **Android 8.0** o superior. Se adaptará a dispositivos de **5 a 10 pulgadas**, procurando que no haya pérdidas en contenido o errores de diseño visual.
+
+- **Recuperación ante errores:**  
+  En caso de fallas en la conexión, la aplicación debe notificar al usuario mediante mensajes amigables e intentar reintentos automáticos de reconexión. En caso de fallas en servidores, se insistirán estos reinicios.
+
+- **Mantenibilidad:**  
+  El código fuente de la aplicación debe seguir principios de desarrollo limpio, modular y documentado, permitiendo actualizaciones rápidas y seguras.
 
 # Diagrama de Casos de Uso:
 
