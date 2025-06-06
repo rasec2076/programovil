@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/pages/perfil/perfil.dart';
 import 'package:prueba_seminario1/pages/principal/principal.dart';
-
+import 'package:prueba_seminario1/pages/Insignias/insignias.dart';
 
 class MiHomePage extends StatefulWidget {
   const MiHomePage({super.key});
@@ -16,6 +16,7 @@ class _MiHomePageState extends State<MiHomePage> {
   final List<Widget> _pages = <Widget>[
     Principal(),
     Perfil(),
+    InsigniasPage(),
   ];
 
   void _onItemTapped(int index) {

@@ -9,4 +9,8 @@ class SesionController extends GetxController {
   }
 
   Usuario? get getUsuario => usuario.value;
+
+  void limpiarSesion() {
+    usuario.value = null;
+  }
 }

@@ -12,6 +12,11 @@ import 'package:prueba_seminario1/pages/inicio/inicio.dart';
 import 'package:prueba_seminario1/pages/login/login.dart';
 import 'package:prueba_seminario1/pages/modulos/modulos.dart';
 import 'package:prueba_seminario1/pages/principal/principal.dart';
+import 'package:prueba_seminario1/pages/recuperar_contrasena1/recuperar_contrasena1.dart';
+import 'package:prueba_seminario1/pages/recuperar_contrasena2/recuperar_contrasena2.dart';
+import 'package:prueba_seminario1/pages/perfil/perfil.dart';
+import 'package:prueba_seminario1/pages/editar_perfil/editar_perfil.dart';
+import 'package:prueba_seminario1/pages/Insignias/insignias.dart';
 import 'package:get/get.dart';
 
 
@@ -41,6 +46,11 @@ class MyApp extends StatelessWidget {
           '/inicioquiz':(context) => InicioNivel() ,
           '/fincuestionario': (context) => FinalCuestionarios(),
           '/cuestionariocorrecto': (context) => Cuestionariocorrecto(),
+          '/recuperar_contrasena1': (context) => RecuperarContrasena1(),
+          '/recuperar_contrasena2': (context) => RecuperarContrasena2(),
+          '/perfil': (context) => Perfil(),
+          '/editar_perfil': (context) => EditarUsuarioPage(usuario: Get.find<SesionController>().getUsuario!),
+          /*'/insignias': (context) => InsigniasPage(),*/
         }
       );
   }

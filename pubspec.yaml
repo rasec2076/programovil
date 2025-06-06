@@ -67,6 +67,8 @@ flutter:
     - assets/json/seccion.json
     - assets/json/pregunta.json
     - assets/json/respuesta.json
+    - assets/json/medalla.json
+    - assets/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_ rr.jpeg

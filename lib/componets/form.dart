@@ -82,7 +82,7 @@ class _FormularioDemoStateState extends State<FormularioDemoState> {
             Center(
               child: GestureDetector(
                     onTap: () {
-                      control.cambiarContrasena(context);
+                      Navigator.pushNamed(context, '/recuperar_contrasena1');
                     },
                       child: Text(
                         '¿Olvidaste tu contraseña?',

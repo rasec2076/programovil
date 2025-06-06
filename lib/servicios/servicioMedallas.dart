@@ -9,12 +9,14 @@ class MedallaService {
     ServiceHttpResponse serviceResponse = ServiceHttpResponse();
 
     try {
-      final String body = await rootBundle.loadString('assets/json/insignias.json');
+      final String body = await rootBundle.loadString('assets/json/medalla.json');
       final List<dynamic> data = jsonDecode(body);
 
       medallas = data
           .map((map) => Medalla.fromJson(map as Map<String, dynamic>))
           .toList();
+      print("🔄 Leyendo archivo insignias.json");
+      print("Cantidad total de medallas cargadas: ${medallas.length}");
 
       serviceResponse.status = 200;
       serviceResponse.body = medallas;
