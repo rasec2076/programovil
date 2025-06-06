@@ -67,7 +67,8 @@ class _FormularioDemoStateState extends State<FormularioDemoState> {
               ),
               child: textfieldcustom(
                 controller: control.contrasenaController,
-                tipo: TextInputType.text,
+                ocultar: true,
+                tipo: TextInputType.visiblePassword,
               ),
             ),
             const SizedBox(height: 20),
@@ -99,5 +100,7 @@ class _FormularioDemoStateState extends State<FormularioDemoState> {
     );
   }
 }
+
+
 
 
