@@ -1,18 +1,18 @@
 class Nivel {
   int id;
-  String nombre;
+  String numero;
   int idseccion;
 
   Nivel({
     required this.id,
-    required this.nombre,
+    required this.numero,
     required this.idseccion,
   });
 
   factory Nivel.fromJson(Map<String, dynamic> json) {
     return Nivel(
       id: json['id'] ?? 0,
-      nombre: json['nombre'] ?? '',
+      numero: json['numero'] ?? '',
       idseccion: json['idseccion'] ?? 0,
     );
   }
@@ -20,13 +20,13 @@ class Nivel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'nombre': nombre,
+      'numero': numero,
       'idseccion': idseccion,
     };
   }
 
   @override
   String toString() {
-    return 'Nivel{id: $id, nombre: $nombre, idseccion: $idseccion}';
+    return 'Nivel{id: $id, nombre: $numero, idseccion: $idseccion}';
   }
 }

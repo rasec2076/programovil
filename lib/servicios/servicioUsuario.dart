@@ -1,58 +1,233 @@
-import 'dart:convert';
+
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:prueba_seminario1/data/servicehttpresponse.dart';
 import 'package:prueba_seminario1/data/usuario.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:prueba_seminario1/data/servicehttpresponse.dart';
+import 'package:prueba_seminario1/data/http_error.dart';
+import '../configs/back.dart';
 
 class UsuarioService {
-  Future<ServiceHttpResponse?> fetchAll(String usuario, String contrasenia) async {
-    List<Usuario> usuarios = [];
+  Future<ServiceHttpResponse?> login(String usuario, String contrasenia) async {
     ServiceHttpResponse serviceResponse = ServiceHttpResponse();
-    // inicio logica servidor
-    final String body =
-        await rootBundle.loadString('assets/json/usuario.json');
-    final List<dynamic> data = jsonDecode(body);
-    usuarios =
-        data.map((map) => Usuario.fromJson(map as Map<String, dynamic>)).toList();
-    // vierificar que usuario y contraseña sean validos
-    bool validos = false;
-    Usuario? userLogeuado = null;
-    for (var user in usuarios) {
-      if(user.nombre == usuario && user.contrasena == contrasenia){
-        validos = true;
-        userLogeuado = user;
+    final url = Uri.parse('$BASE_URL/api/usuarios/login');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'usuario': usuario,
+          'contrasenia': contrasenia,
+        }),
+      );
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        final token = responseData['token'];
+        final user = responseData['usuario'];
+
+        serviceResponse.status = 200;
+        serviceResponse.body = {
+          'token': token,
+          'usuario':user,
+        };
+      } else {
+        final error = HttpError.fromJson(responseData);
+        serviceResponse.status = response.statusCode;
+        serviceResponse.body = error;
       }
+    } catch (e) {
+      print("❌ Error en login: $e");
+      serviceResponse.status = 500;
+      serviceResponse.body = null;
     }
-    if (validos == false){
-      serviceResponse.status = 400;
-      serviceResponse.body = '';
-    }else{
-      serviceResponse.body = userLogeuado;
-      serviceResponse.status = 200;
-    }
-    // fin logica servidorv
+
     return serviceResponse;
   }
 
-    Future<ServiceHttpResponse?> fetchAllusuarios() async {
-    List<Usuario> usuarios = [];
+
+   Future<ServiceHttpResponse?> crearCuenta(Usuario usuario) async {
     ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('$BASE_URL/api/usuarios/crear-cuenta');
 
-    final String body =
-        await rootBundle.loadString('assets/json/usuario.json');
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'usuario': usuario.usuario,
+          'correo': usuario.correo,
+          'contrasenia': usuario.contrasena,
+          'edad': usuario.edad,
+          'generoId': usuario.idgenero,
+        }),
+      );
 
-    final List<dynamic> data = jsonDecode(body);
-    usuarios =
-        data.map((map) => Usuario.fromJson(map as Map<String, dynamic>)).toList();
+      final responseData = json.decode(response.body);
 
-    serviceResponse.status = 200;
-    print(usuarios); // Para verificar en consola
-    serviceResponse.body = usuarios;
+      if (response.statusCode == 201) {
+        serviceResponse.status = 201;
+        serviceResponse.body = responseData;
+      } else {
+        serviceResponse.status = response.statusCode;
+        serviceResponse.body = HttpError.fromJson(responseData);
+      }
+    } catch (e) {
+      print("❌ Error al crear cuenta: $e");
+      serviceResponse.status = 500;
+      serviceResponse.body = null;
+    }
 
     return serviceResponse;
   }
 
+  Future<ServiceHttpResponse?> obtenerTodosLosUsuarios() async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('$BASE_URL/api/usuarios');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(response.body);
+        final usuarios = responseData.map((json) => Usuario.fromJson(json)).toList();
+
+        serviceResponse.status = 200;
+        serviceResponse.body = usuarios;
+      } else {
+        final responseData = json.decode(response.body);
+        final error = HttpError.fromJson(responseData);
+        serviceResponse.status = response.statusCode;
+        serviceResponse.body = error;
+      }
+    } catch (e) {
+      print("❌ Error al obtener usuarios: $e");
+      serviceResponse.status = 500;
+      serviceResponse.body = null;
+    }
+
+    return serviceResponse;
+  }
+
+  Future<ServiceHttpResponse?> obtenerUsuarioPorId(int id, String token) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('$BASE_URL/api/usuarios/$id');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', // si la ruta está protegida con JWT
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        final usuario = Usuario.fromJson(responseData);
+
+        serviceResponse.status = 200;
+        serviceResponse.body = usuario;
+      } else {
+        final responseData = json.decode(response.body);
+        final error = HttpError.fromJson(responseData);
+        serviceResponse.status = response.statusCode;
+        serviceResponse.body = error;
+      }
+    } catch (e) {
+      print("❌ Error al obtener usuario: $e");
+      serviceResponse.status = 500;
+      serviceResponse.body = null;
+    }
+
+    return serviceResponse;
+  }
+
+
+  Future<ServiceHttpResponse?> actualizarUsuario({
+    required String token,
+    required String usuario,
+    required String correo,
+    required int edad,
+    required int generoId,
+  }) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('$BASE_URL/api/usuarios/actualizar-usuario');
+
+    try {
+      final response = await http.put(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'usuario': usuario,
+          'correo': correo,
+          'edad': edad,
+          'generoId': generoId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        serviceResponse.status = 200;
+        serviceResponse.body = {"mensaje": "Usuario actualizado correctamente"};
+      } else {
+        final responseData = json.decode(response.body);
+        final error = HttpError.fromJson(responseData);
+        serviceResponse.status = response.statusCode;
+        serviceResponse.body = error;
+      }
+    } catch (e) {
+      print("❌ Error al actualizar usuario: $e");
+      serviceResponse.status = 500;
+      serviceResponse.body = null;
+    }
+
+    return serviceResponse;
+  }
+
+Future<ServiceHttpResponse?> obtenerPerfil(String token) async {
+  ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+  final url = Uri.parse('$BASE_URL/api/usuarios/perfil');
+
+  try {
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final usuario = Usuario.fromJson(jsonData);
+
+      serviceResponse.status = 200;
+      serviceResponse.body = usuario;
+    } else {
+      final error = HttpError.fromJson(json.decode(response.body));
+      serviceResponse.status = response.statusCode;
+      serviceResponse.body = error;
+    }
+  } catch (e) {
+    print("❌ Error al obtener perfil: $e");
+    serviceResponse.status = 500;
+    serviceResponse.body = null;
+  }
+
+  return serviceResponse;
+}
   
 }
+
+
 
 /* 
 usuaurio correcto

@@ -20,15 +20,15 @@ class InspeccionarInsigniaPage extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (insignia.imagen.isNotEmpty)
-                Image.asset(
+                Image.network(
                   insignia.imagen,
-                  width: 120,
-                  height: 120,
+                  width: 180,
+                  height: 180,
                 )
               else
                 const Icon(Icons.emoji_events, size: 100, color: Colors.brown),
@@ -37,7 +37,7 @@ class InspeccionarInsigniaPage extends StatelessWidget {
                 insignia.descripcion,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),

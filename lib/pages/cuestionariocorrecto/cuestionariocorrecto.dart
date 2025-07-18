@@ -8,34 +8,39 @@ import 'package:prueba_seminario1/pages/cuestionariocorrecto/cuestionariocorrect
 import 'package:prueba_seminario1/pages/perfil/perfil_controller.dart';
 
 
-class Cuestionariocorrecto extends StatelessWidget {
+class Cuestionariocorrecto extends StatefulWidget {
+  const Cuestionariocorrecto({super.key});
 
+  @override
+  State<Cuestionariocorrecto> createState() => _CuestionariocorrectoState();
+}
 
-  CuestionariocorrectoController control = Get.put(CuestionariocorrectoController());
-  PerfilController control1= Get.put(PerfilController());
-  Cuestionariocorrecto({super.key});
+class _CuestionariocorrectoState extends State<Cuestionariocorrecto> {
+  final control = Get.put(CuestionariocorrectoController());
+  final control1 = Get.put(PerfilController());
+  final sesion = Get.find<SesionController>();
 
- 
+  @override
+  void initState() {
+    super.initState();
+    sesion.actualizardatos(); // ✅ Se ejecuta al entrar
+  }
 
   @override
   Widget build(BuildContext context) {
-     final args = ModalRoute.of(context)?.settings.arguments;
-       if (args == null || args is! Map<String, dynamic>) {
-  return const Scaffold(
-    body: Center(
-      child: Text('❌ No hay datos para este nivel'),
-    ),
-  );
-  
-  
-}
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args == null || args is! Map<String, dynamic>) {
+      return const Scaffold(
+        body: Center(child: Text('❌ No hay datos para este nivel')),
+      );
+    }
 
-  final SesionController sesion = Get.find<SesionController>();
-    final Usuario? user = sesion.getUsuario;
-    final UsuarioProgreso progress = args ["progreso"] ;
-    final experienciaGanada = args["experiencia"];
-    
-   return  Scaffold(
+    final user = sesion.getUsuario;
+    final experienciaGanada = args["experienciaGanada"];
+    final int aciertos = args["aciertos"];
+    final int idnivel = args["idnivel"];
+
+    return Scaffold(
       backgroundColor: const Color(0xFFEED89B),
       body: Center(
         child: Container(
@@ -56,11 +61,10 @@ class Cuestionariocorrecto extends StatelessWidget {
                   ),
                 ),
               ),
-               SizedBox(height: 50),     // 🟡 Tarjetas de EXP y ACIERTOS
+              SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // EXP TOTAL
                   Container(
                     width: 150,
                     padding: const EdgeInsets.all(20),
@@ -68,7 +72,7 @@ class Cuestionariocorrecto extends StatelessWidget {
                       color: Colors.yellow[600],
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child:  Column(
+                    child: Column(
                       children: [
                         Text("EXP TOTAL", style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 8),
@@ -77,7 +81,6 @@ class Cuestionariocorrecto extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 30),
-                  // ACIERTOS
                   Container(
                     width: 150,
                     padding: const EdgeInsets.all(20),
@@ -89,7 +92,7 @@ class Cuestionariocorrecto extends StatelessWidget {
                       children: [
                         Text("ACIERTOS", style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 8),
-                        Text(" ${progress.aciertos.toString()}"),
+                        Text(" ${aciertos.toString()}"),
                       ],
                     ),
                   ),
@@ -97,9 +100,9 @@ class Cuestionariocorrecto extends StatelessWidget {
               ),
               SizedBox(height: 50),
               boton(
-                data: "Finalizar",
+                data: "Continuar",
                 onPressed: () {
-                  control.irPrincipal(context,experienciaGanada, user!.id);
+                  control.GanasteInsignia(context, user!.id, idnivel);
                 },
               ),
             ],

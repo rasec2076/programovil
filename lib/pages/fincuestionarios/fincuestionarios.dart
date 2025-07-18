@@ -11,8 +11,6 @@ class FinalCuestionarios extends StatelessWidget {
   FincuestionariosController control = Get.put(FincuestionariosController());
   FinalCuestionarios({super.key});
 
- 
-
   @override
   Widget build(BuildContext context) {
    return  Scaffold(

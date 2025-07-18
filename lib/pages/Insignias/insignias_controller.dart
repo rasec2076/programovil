@@ -11,17 +11,17 @@ class InsigniaController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    cargarInsignias();
   }
 
-  void cargarInsignias() async {
-    final response = await _service.fetchAll();
-    if (response?.status == 200 && response?.body is List<Medalla>) {
-      final todas = response!.body as List<Medalla>;
-      medallas.value = todas.where((m) => m.tipo == 'medalla').toList();
-      logros.value = todas.where((m) => m.tipo == 'logro').toList();
-    } else {
-      print("❌ Error al cargar medallas: ${response?.body}");
-    }
+void cargarInsignias(int idUsuario) async {
+  final response = await _service.verInsigniasDeUsuario(idUsuario);
+
+  if (response?.status == 200 && response?.body is List<Medalla>) {
+    final todas = response!.body as List<Medalla>;
+    medallas.value = todas.where((m) => m.idTipo == 1).toList();
+    logros.value = todas.where((m) => m.idTipo == 2).toList();
+  } else {
+    print("❌ Error al cargar medallas: ${response?.body}");
   }
+}
 }

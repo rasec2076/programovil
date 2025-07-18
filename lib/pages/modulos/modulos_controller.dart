@@ -13,7 +13,7 @@ class ModulosController extends GetxController {
   
 
   void initialFetch(BuildContext context) async {
-    Future<ServiceHttpResponse?> response = moduloService.fetchAll();
+    Future<ServiceHttpResponse?> response = moduloService.findAllModulos();
     ServiceHttpResponse? result = await response;
     if(result == null){
       print('no hay respuesta del servidor');

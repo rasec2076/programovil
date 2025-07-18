@@ -30,7 +30,7 @@ class Nivelcomponent extends StatelessWidget {
       height: 80,
       alignment: Alignment.center,
       child: Text(
-        nivelData.nombre,
+        nivelData.numero,
         style: TextStyle(
           color: isDark ? Colors.white : Colors.black,
           fontWeight: FontWeight.bold,

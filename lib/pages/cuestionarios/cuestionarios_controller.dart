@@ -21,8 +21,8 @@ class CuestionariosController extends GetxController {
     var mostrarFeedback = false.obs; // controla la visibilida
     var respuestaSeleccionada = Rxn<Respuesta>(); // para guardar la respuesta seleccionada
     var preguntaActual = 0.obs; // índice actual de pregunta  
-    var aciertos = 0;
     Respuesta? respuestaCorrecta;
+    final Stopwatch cronometro = Stopwatch();
 
 
     int get indexPreguntaActual => preguntaActual.value;
@@ -30,36 +30,7 @@ class CuestionariosController extends GetxController {
     bool get esRespuestaCorrecta => estadoRespuesta;
     String get textoRespuestaCorrecta => respuestaCorrecta?.respuesta ?? '';
 
-    void initialFetchPregunta(BuildContext context) async {
-    Future<ServiceHttpResponse?> response = serviciopregunta.fetchAll();
-    ServiceHttpResponse? result = await response;
-    if(result == null){
-      print('no hay respuesta del servidor');
-    }else{
-      if(result.status == 200){
-        preguntas.value = result.body;
-        print('Prreguntas cargados: ${preguntas.length}');// estoy sacando la lista de quizzes
-      }else{
-        print('error en la respuesta de servidor');
-      }
-    }
-  }
 
-
-    void initialFetchRespuesta(BuildContext context) async {
-    Future<ServiceHttpResponse?> response = serviciorespuesta.fetchAll();
-    ServiceHttpResponse? result = await response;
-    if(result == null){
-      print('no hay respuesta del servidor');
-    }else{
-      if(result.status == 200){
-        respuestas.value = result.body;
-        print('Respuestas cargados: ${respuestas.length}');
-      }else{
-        print('error en la respuesta de servidor');
-      }
-    }
-  }
 
   void irPrincipal (BuildContext context){
       Navigator.pushNamed(context, '/principal');
@@ -86,44 +57,69 @@ class CuestionariosController extends GetxController {
   estadoRespuesta = seleccionada.correcta;
   mostrarFeedback.value = true;
 
-   // Incrementar aciertos si es correcta la respuesta
-  if (seleccionada.correcta) {
-    progress.aciertos += 1;
-  }
+  
   
 }
 
-void continuar(BuildContext context, List<Map<String, dynamic>> preguntasConRespuestas, Usuario? user, UsuarioProgreso progress) {
-  final respuesta = estadoRespuesta ;
+void continuar(
+  BuildContext context,
+  List<Map<String, dynamic>> preguntasConRespuestas,
+  Usuario? user,
+  UsuarioProgreso progress,
+  
 
-  if (respuesta == false ) {
-    user!.vidas -= 1;
-    
+) async {
+  final response = await serviciopregunta.responderPregunta(
+    idUsuario: user!.id,
+    idNivel: progress.idnivel,
+    idRespuesta: respuestaSeleccionada.value!.id,
+  );
+
+  if (response?.status != 200) {
+    print('Error al responder la pregunta');
+    return;
   }
 
-  if (user!.vidas == 0) {
-    user.vidas = 3;
+  final data = response!.body as Map<String, dynamic>;
+
+  final int vidasRestantes = data['vidasRestantes'];
+  final bool nivelCompletado = data['nivelCompletado'] ?? false;
+  final int experienciaGanada = data['experienciaGanada']?? 0 ;
+  final bool reiniciado = data['reiniciado'] ?? false;
+  final int aciertos = data['aciertos'] ?? 0;
+
+  user.vidas = vidasRestantes;
+  
+
+  if (reiniciado) {
     preguntaActual.value = 0;
     mostrarFeedback.value = false;
-    progress.completado = false;
-    progress.aciertos = 0;
     Navigator.pushNamed(context, '/fincuestionario', arguments: progress);
     return;
   }
 
-  if (preguntaActual.value < preguntasConRespuestas.length - 1) {
-    preguntaActual.value++;
-    respuestaSeleccionada.value = null;
-    mostrarFeedback.value = false;
-  } else {
-    user.vidas = 3;
-    progress.completado=true;
-    preguntaActual.value = 0;
-    mostrarFeedback.value = false;
-    final experienciaGanada = progress.aciertos*20;
-    user.experiencia= user.experiencia+experienciaGanada;
-    Navigator.pushNamed(context, '/cuestionariocorrecto',arguments: {"progreso":progress, "experiencia":experienciaGanada} );
-  }
+if (!nivelCompletado && preguntaActual.value + 1 < preguntasConRespuestas.length) {
+  // Solo si hay más preguntas
+  preguntaActual.value++;
+  respuestaSeleccionada.value = null;
+  mostrarFeedback.value = false;
+} else if (nivelCompletado) {
+  cronometro.stop();
+  preguntaActual.value = 0;
+  mostrarFeedback.value = false;
+  Navigator.pushNamed(
+    context,
+    '/cuestionariocorrecto',
+    arguments: {
+      "idusuario": user.id,
+      "idnivel": progress.idnivel,
+      "aciertos": aciertos,
+      "vidasRestantes": user.vidas,
+      "experienciaGanada": experienciaGanada,
+
+    },
+  );
+}
 }
 
 
@@ -133,13 +129,13 @@ void continuar(BuildContext context, List<Map<String, dynamic>> preguntasConResp
   }
 
 
-void confirmarSalida(BuildContext context) async {
+void confirmarSalida(BuildContext context, int idUsuario, int idNivel) async {
   final salir = await showModalBottomSheet<bool>(
     context: context,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
-    backgroundColor: const Color (0xFFEED89B),
+    backgroundColor: const Color(0xFFEED89B),
     builder: (_) => Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -184,6 +180,31 @@ void confirmarSalida(BuildContext context) async {
   );
 
   if (salir == true) {
+    final response = await serviciopregunta.reiniciarCuestionario(
+      idUsuario: idUsuario,
+      idNivel: idNivel,
+    );
+
+    if (response?.status == 200) {
+      print("✅ Progreso reiniciado correctamente");
+
+      // ✅ También reiniciar el estado local del cuestionario
+      preguntaActual.value = 0;
+      respuestaSeleccionada.value = null;
+      mostrarFeedback.value = false;
+      cronometro.reset();
+
+    } else {
+      print("❌ Error al reiniciar progreso: ${response?.body}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Hubo un problema al reiniciar el cuestionario"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+
+    // Redirigir a Home igual, incluso si falló
     Navigator.pushNamedAndRemoveUntil(
       context,
       '/Home',

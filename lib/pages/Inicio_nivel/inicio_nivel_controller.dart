@@ -6,6 +6,7 @@ import 'package:prueba_seminario1/data/respuesta.dart';
 import 'package:prueba_seminario1/data/servicehttpresponse.dart';
 import 'package:prueba_seminario1/data/usuario.dart';
 import 'package:prueba_seminario1/data/usuarioprogreso.dart';
+import 'package:prueba_seminario1/pages/cuestionarios/cuestionarios_controller.dart';
 import 'package:prueba_seminario1/servicios/servicioPreguntas.dart';
 import 'package:prueba_seminario1/servicios/servicioRespuestas.dart';
 import 'package:prueba_seminario1/servicios/servicioUsuarioProgreso.dart';
@@ -18,92 +19,56 @@ final  UsuarioProgresoService usuarioProgresoservice = UsuarioProgresoService();
   final PreguntaService serviciopregunta = PreguntaService();
     final preguntas = <Pregunta>[].obs;
     final  respuestas = <Respuesta>[].obs;
+    /*final CuestionariosController cuestionarioCtrl = Get.find<CuestionariosController>();*/
 
-    void initialFetchPregunta(BuildContext context) async {
-    Future<ServiceHttpResponse?> response = serviciopregunta.fetchAll();
-    ServiceHttpResponse? result = await response;
-    if(result == null){
-      print('no hay respuesta del servidor');
-    }else{
-      if(result.status == 200){
-        preguntas.value = result.body;
-        print('Prreguntas cargados: ${preguntas.length}');// estoy sacando la lista de quizzes
-      }else{
-        print('error en la respuesta de servidor');
-      }
-    }
-  }
-
-
-    void initialFetchRespuesta(BuildContext context) async {
-    Future<ServiceHttpResponse?> response = serviciorespuesta.fetchAll();
-    ServiceHttpResponse? result = await response;
-    if(result == null){
-      print('no hay respuesta del servidor');
-    }else{
-      if(result.status == 200){
-        respuestas.value = result.body;
-        print('Respuestas cargados: ${respuestas.length}');
-      }else{
-        print('error en la respuesta de servidor');
-      }
-    }
-  }
+  
   
 
 Future<void> irNivel(BuildContext context, Nivel nivelData, Usuario? user) async {
-  // 1. Obtener preguntas del nivel
- final preguntasResponse = await serviciopregunta.findAllPreguntasPorNivel(nivelData.id);
-  if (preguntasResponse?.status != 200 || preguntasResponse!.body.isEmpty) {
-    print(' No se encontraron preguntas para el nivel ${nivelData.id}');
+  final cuestionarioResponse = await serviciopregunta.findAllCuestionarioporNivel(nivelData.id);
+
+  if (cuestionarioResponse?.status != 200 || cuestionarioResponse!.body == null) {
+    print('❌ Error al obtener cuestionario para nivel ${nivelData.id}');
     return;
   }
 
-  final List<Pregunta> preguntasDelNivel = List<Pregunta>.from(preguntasResponse.body);
+  final List<Pregunta> preguntas = cuestionarioResponse.body['preguntas'];
+  final List<Respuesta> respuestas = cuestionarioResponse.body['respuestas'];
 
-  // 2. Para cada pregunta, obtener sus respuestas
-  final List<Map<String, dynamic>> preguntasConRespuestas = [];
+  final List<Map<String, dynamic>> preguntasConRespuestas = preguntas.map((pregunta) {
+    final respuestasDeEsta = respuestas.where((r) => r.idPregunta == pregunta.id).toList();
+    return {
+      'pregunta': pregunta,
+      'respuestas': respuestasDeEsta,
+    };
+  }).toList();
 
-  for (final pregunta in preguntasDelNivel) {
-    final respuestasResponse = await serviciorespuesta.findAllRespuestasPorPregunta(pregunta.id);
-    final respuestas = (respuestasResponse?.status == 200)
-        ? List<Respuesta>.from(respuestasResponse!.body)
-        : <Respuesta>[];
-
-    preguntasConRespuestas.add({
-      "pregunta": pregunta,
-      "respuestas": respuestas,
-    });
-  }
-
-  // 3. Obtener el progreso, si no existe, crear uno con valores por defecto
   final progresoResponse = await usuarioProgresoservice.findProgresoPorUsuarioYNivel(user!.id, nivelData.id);
   UsuarioProgreso progreso;
+
+
   if (progresoResponse?.status == 200) {
-    progreso = progresoResponse!.body;
+    progreso = progresoResponse!.body ;
   } else {
-    print('Progreso no encontrado, creando uno nuevo por defecto');
-    progreso = UsuarioProgreso(
-      id: 0, // o algún id temporal
-      completado: false,
-      intentos: 0,
-      aciertos: 0,
-      idusuario: user.id,
-      idnivel: nivelData.id,
-    );
+    print('Progreso no encontrado, creando uno...');
+    final crearResponse = await usuarioProgresoservice.crearProgreso(user.id, nivelData.id);
+    progreso = crearResponse!.body ;
   }
 
-  // 4. Navegar y enviar TODO en arguments
-  Navigator.pushNamed(
-    context,
-    '/quiz',
-    arguments: {
-      "preguntas": preguntasConRespuestas,
-      "progreso": progreso,
-      "usuario": user,
-      "nivel": nivelData,
-    },
-  );
+    /*cuestionarioCtrl.cronometro.reset();
+    cuestionarioCtrl.cronometro.start();*/
+
+    // Navegar con los datos completos
+    Navigator.pushNamed(
+      context,
+      '/quiz',
+      arguments: {
+        "preguntas": preguntasConRespuestas,
+        "progreso": progreso,
+        "usuario": user,
+        "nivel": nivelData,
+      },
+    );
 }
 
 

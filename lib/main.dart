@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/configs/theme.dart';
 import 'package:prueba_seminario1/configs/util.dart';
 import 'package:prueba_seminario1/global/sesioncontroller.dart';
+import 'package:prueba_seminario1/pages/GanasteInsignia/ganasteinsignia.dart';
 import 'package:prueba_seminario1/pages/Inicio_nivel/inicio_nivel.dart';
 import 'package:prueba_seminario1/pages/Registrar/registrar.dart';
 import 'package:prueba_seminario1/pages/cuestionariocorrecto/cuestionariocorrecto.dart';
 import 'package:prueba_seminario1/pages/cuestionarios/cuestionarios.dart';
 import 'package:prueba_seminario1/pages/fincuestionarios/fincuestionarios.dart';
+import 'package:prueba_seminario1/pages/ganastelogro/ganastelogro.dart';
 import 'package:prueba_seminario1/pages/home/home.dart';
 import 'package:prueba_seminario1/pages/inicio/inicio.dart';
 import 'package:prueba_seminario1/pages/login/login.dart';
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
           '/recuperar_contrasena2': (context) => RecuperarContrasena2(),
           '/perfil': (context) => Perfil(),
           '/editar_perfil': (context) => EditarUsuarioPage(usuario: Get.find<SesionController>().getUsuario!),
+          '/darinsignia': (context) => Ganasteinsignia(),
+          '/ganastelogro': (context) => GanasteLogro(),
           /*'/insignias': (context) => InsigniasPage(),*/
         }
       );

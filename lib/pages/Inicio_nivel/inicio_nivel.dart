@@ -16,8 +16,6 @@ class InicioNivel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  control.initialFetchPregunta(context);
-  control.initialFetchRespuesta(context);
   final nivelData = ModalRoute.of(context)!.settings.arguments as Nivel;
   final SesionController sesion = Get.find<SesionController>();
   final Usuario? user = sesion.getUsuario;

@@ -35,7 +35,7 @@ Widget build(BuildContext context) {
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              '/principal',
+              '/Home',
               (route) => false,
             );
           },

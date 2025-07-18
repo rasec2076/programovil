@@ -13,30 +13,34 @@ class LoginController extends GetxController {
   final  UsuarioService usuarios = UsuarioService();
   final SesionController sesion = Get.put(SesionController());
 
-  Future<void> login(BuildContext context) async {
-    final nombre = nombreController.text.trim();
-    final contrasena = contrasenaController.text.trim();
+Future<void> login(BuildContext context) async {
+  final nombre = nombreController.text.trim();
+  final contrasena = contrasenaController.text.trim();
 
-    ServiceHttpResponse? response = await usuarios.fetchAll(nombre, contrasena);
-
-    if(response == null){
-      print('no hay respuesta del servidor');
-    }else{
-      if(response.status== 200){
-        Usuario user = response.body;
-        sesion.setUsuario(user);
-        Navigator.pushNamed(context,'/Home');
-        Get.snackbar("Éxito", "Bienvenido ${user.nombre}",
-          snackPosition: SnackPosition.TOP);
-
-      }else{
-        print('error en la respuesta de servidor');
-      }
-    }
-
-    
+  ServiceHttpResponse? response = await usuarios.login(nombre, contrasena);
+  
+  if (response == null) {
+    print('❌ No hay respuesta del servidor');
+    return;
   }
 
+  if (response.status == 200) {
+    final responseData = response.body as Map<String, dynamic>;
+
+    final token = responseData["token"];
+    final usuarioMap = responseData["usuario"];
+    final usuario = Usuario.fromJson(usuarioMap);
+
+    // Guardamos tanto usuario como token
+    sesion.setUsuario(usuario, authToken: token);
+
+    Navigator.pushNamed(context, '/Home');
+
+    Get.snackbar("Éxito", "Bienvenido ${usuario.usuario}", snackPosition: SnackPosition.TOP);
+  } else {
+    print('⚠️ Error en la respuesta del servidor: ${response.status}');
+  }
+}
   void irRegistro (BuildContext context){
       Navigator.pushNamed(context, '/Registrar');
   }

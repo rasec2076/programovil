@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/componets/boton.dart';
 import 'package:prueba_seminario1/componets/opcion.dart';
+import 'package:prueba_seminario1/data/nivel.dart';
 import 'package:prueba_seminario1/data/usuario.dart';
 import 'package:prueba_seminario1/data/usuarioprogreso.dart';
 import 'package:prueba_seminario1/pages/cuestionarios/cuestionarios_controller.dart';
@@ -33,11 +34,12 @@ class _CuestionariosState extends State<Cuestionarios> {
     
     final List<Map<String, dynamic>> preguntasConRespuestas = args["preguntas"];
     final UsuarioProgreso progress = args["progreso"] ;
+    final Nivel niveldata = args ["nivel"];
 
 
     return WillPopScope(
       onWillPop: () async {
-        control.confirmarSalida(context);
+        control.confirmarSalida(context, user!.id, niveldata.id);
         return false;
       },
       child: Scaffold(
@@ -84,7 +86,7 @@ class _CuestionariosState extends State<Cuestionarios> {
                       Image.asset("assets/mate.png", height: 220, width: double.infinity),
                       const SizedBox(height: 30),
                       Text(
-                        pregunta.nombre,
+                        pregunta.pregunta,
                         style:
                             const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                         textAlign: TextAlign.center,
@@ -98,6 +100,7 @@ class _CuestionariosState extends State<Cuestionarios> {
                               control.seleccion(context, r);
                             },
                             data: r.respuesta,
+                            seleccionado: control.respuestaSeleccionada.value == r,
                           ),
                         ),
                       const SizedBox(height: 50),
@@ -107,7 +110,7 @@ class _CuestionariosState extends State<Cuestionarios> {
                             data: 'Confirmar',
                             onPressed: () {
                               control.siguientePregunta(
-                                  context, preguntasConRespuestas, user, progress);
+                                  context, preguntasConRespuestas, user, progress, );
                             },
                           );
                         } else {

@@ -16,7 +16,7 @@ class Respuesta {
       id: json['id'] ?? 0,
       respuesta: json['respuesta'] ?? '',
       correcta: json['correcta'] ?? false,
-      idPregunta: json['idpregunta'] ?? 0,
+      idPregunta: json['id_pregunta'] ?? 0,
     );
   }
 

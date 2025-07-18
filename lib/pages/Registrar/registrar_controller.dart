@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/servicios/servicioUsuario.dart';
@@ -14,7 +13,7 @@ class RegistrarController extends GetxController {
   final edadController = TextEditingController();
   String? Genero;
 
-  final UsuarioService usuarios = UsuarioService();
+  final UsuarioService usuarioservicio = UsuarioService();
 
   void mostrarAlertaExito(BuildContext context) {
     showDialog(
@@ -40,77 +39,71 @@ class RegistrarController extends GetxController {
     );
   }
 
-  Future<void> registrar(BuildContext context) async {
+    Future<void> registrar(BuildContext context) async {
     final nombre = nombreController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text;
     final edad = int.tryParse(edadController.text.trim()) ?? 0;
 
-    if (nombre.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty ||
-        edad == 0 ||
-        Genero == null) {
+    if (nombre.isEmpty || email.isEmpty || password.isEmpty || edad == 0 || Genero == null) {
       showDialog(
         context: context,
-        builder:
-            (context) => AlertDialog(
-              title: Text('Error'),
-              content: Text('Completa todos los campos antes de continuar.'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cerrar'),
-                ),
-              ],
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Completa todos los campos antes de continuar.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cerrar'),
             ),
+          ],
+        ),
       );
       return;
     }
 
-    List<Usuario> usuarios = [];
-    final String body = await rootBundle.loadString('assets/json/usuario.json');
-    final List<dynamic> data = jsonDecode(body);
-    usuarios =
-        data
-            .map((map) => Usuario.fromJson(map as Map<String, dynamic>))
-            .toList();
-
     final nuevoUsuario = Usuario(
-      id: 6,
-      nombre: nombre,
+      id: 0,
+      usuario: nombre,
       correo: email,
       contrasena: password,
       edad: edad,
-      experiencia: 20,
+      experiencia: 0,
       idgenero: Genero == 'Masculino' ? 1 : 2,
-      nivelexperiencia: 0,
+      nivelExperiencia: 0,
       vidas: 3,
     );
 
-    usuarios.add(nuevoUsuario);
+    final response = await usuarioservicio.crearCuenta(nuevoUsuario);
 
-    final usuariosTexto = usuarios
-        .map((u) => '${u.nombre}, ${u.correo}')
-        .join('\n');
+    if (response != null && response.status == 201) {
+      mostrarAlertaExito(context);
+    } else {
+      String errorMsg = 'Error al registrar usuario.';
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Registro exitoso'),
-          content: Text('Usuarios registrados:\n\n$usuariosTexto'),
+      if (response != null && response.body is Map<String, dynamic>) {
+        final Map<String, dynamic> errorJson = response.body;
+        if (errorJson.containsKey('message')) {
+          errorMsg = errorJson['message'];
+        } else if (errorJson.containsKey('error')) {
+          errorMsg = errorJson['error'];
+        }
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(errorMsg),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // cerrar alerta
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-              child: Text('Ir al login'),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cerrar'),
             ),
           ],
-        );
-      },
-    );
+        ),
+      );
+    }
   }
+
 }

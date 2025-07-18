@@ -2,15 +2,15 @@ class Medalla {
   int id;
   String nombre;
   String descripcion;
-  String tipo;
   String imagen;
+  int idTipo; // Cambia 'tipo' por 'idTipo' y cambia el tipo a int
 
   Medalla({
     required this.id,
     required this.nombre,
     required this.descripcion,
-    required this.tipo,
     required this.imagen,
+    required this.idTipo,
   });
 
   factory Medalla.fromJson(Map<String, dynamic> json) {
@@ -18,8 +18,8 @@ class Medalla {
       id: json["id"] ?? 0,
       nombre: json["nombre"] ?? "",
       descripcion: json["descripcion"] ?? "",
-      tipo: json["tipo"] ?? "",
       imagen: json["imagen"] ?? "",
+      idTipo: json["id_tipo"] ?? 0,
     );
   }
 
@@ -28,13 +28,13 @@ class Medalla {
       'id': id,
       'nombre': nombre,
       'descripcion': descripcion,
-      'tipo': tipo,
       'imagen': imagen,
+      'id_tipo': idTipo,
     };
   }
 
   @override
   String toString() {
-    return 'Insignia{id: $id, nombre: $nombre, tipo: $tipo}';
+    return 'Medalla{id: $id, nombre: $nombre, idTipo: $idTipo}';
   }
 }

@@ -64,14 +64,6 @@ class _PaginaPerfilState extends State<Perfil> {
 
   @override
   Widget build(BuildContext context) {
-    final usuario = sesion.getUsuario;
-    if (usuario == null) {
-      Future.microtask(() {
-        Navigator.pushReplacementNamed(context, '/login');
-      });
-      return const Scaffold();
-    }
-
     return Scaffold(
       backgroundColor: const Color(0xFFEBD49C),
       body: SafeArea(
@@ -81,57 +73,67 @@ class _PaginaPerfilState extends State<Perfil> {
             children: [
               Column(
                 children: [
-                  mostrarMenu
-                      ? _buildCerrarSesionCard()
-                      : Container(
-                          height: 200,
-                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2),
-                            borderRadius: BorderRadius.circular(8),
-                            color: const Color(0XFFEAD9B5),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Usuario: ${usuario.nombre}',
-                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-                                    Text('Género: ${usuario.idgenero}',
-                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                    Text('Edad: ${usuario.edad}',
-                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                    Text('Experiencia: ${usuario.experiencia} XP',
-                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                  ],
+                  Obx(() {
+                    final usuario = sesion.usuario.value;
+                    if (usuario == null) {
+                      Future.microtask(() {
+                        Navigator.pushReplacementNamed(context, '/login');
+                      });
+                      return const SizedBox(); // pantalla vacía mientras redirige
+                    }
+
+                    return mostrarMenu
+                        ? _buildCerrarSesionCard()
+                        : Container(
+                            height: 200,
+                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black, width: 2),
+                              borderRadius: BorderRadius.circular(8),
+                              color: const Color(0XFFEAD9B5),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Usuario: ${usuario.usuario}',
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                      Text('Género: ${usuario.idgenero == 1 ? 'Masculino' : 'Femenino'}',
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                      Text('Edad: ${usuario.edad}',
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                      Text('Nivel: ${usuario.nivelExperiencia} Nivel',
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const Icon(Icons.person, size: 80),
-                            ],
-                          ),
-                        ),
+                                const Icon(Icons.person, size: 80),
+                              ],
+                            ),
+                          );
+                  }),
                   const SizedBox(height: 10),
-                  boton(
-                    data: "Editar",
-                    onPressed: () async {
-                      final usuarioEditado = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EditarUsuarioPage(usuario: usuario),
-                        ),
-                      );
-                      if (usuarioEditado != null) {
-                        sesion.setUsuario(usuarioEditado);
-                        setState(() {});
-                      }
-                    },
-                  ),
+              boton(
+                data: "Editar",
+                onPressed: () async {
+                  final usuarioActual = sesion.usuario.value!;
+                  final resultado = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditarUsuarioPage(usuario: usuarioActual),
+                    ),
+                  );
+                  if (resultado == true) {
+                    await sesion.actualizardatos();     // 🔄 Refresca datos del usuario
+                    control.initialFetch();             // 🔄 Refresca ranking
+                    control.usuarios.refresh();         // 🔄 Fuerza reconstrucción visual
+                  }
+                },
+              ),
                   const SizedBox(height: 12),
                   const Text(
                     "Ranking de Usuarios",
@@ -154,11 +156,11 @@ class _PaginaPerfilState extends State<Perfil> {
                             child: ListTile(
                               leading: Text('${index + 1}',
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                              title: Text(user.nombre,
+                              title: Text(user.usuario,
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                              subtitle: Text('Edad: ${user.edad}, Género: ${user.idgenero}',
+                              subtitle: Text('Edad: ${user.edad}, Género: ${user.idgenero }',
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              trailing: Text('${user.experiencia} XP',
+                              trailing: Text('${user.nivelExperiencia} Nivel',
                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                             ),
                           );
@@ -187,3 +189,4 @@ class _PaginaPerfilState extends State<Perfil> {
     );
   }
 }
+

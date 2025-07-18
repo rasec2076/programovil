@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_seminario1/data/usuario.dart';
-
 import 'dart:convert';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prueba_seminario1/global/sesioncontroller.dart';
+import 'package:prueba_seminario1/servicios/servicioUsuario.dart';
 
 class EditarUsuarioController {
   final TextEditingController nombreController = TextEditingController();
@@ -11,51 +13,49 @@ class EditarUsuarioController {
   final TextEditingController contrasenaController = TextEditingController();
   final TextEditingController edadController = TextEditingController();
   int? generoSeleccionado;
+  final UsuarioService usuarioservice = UsuarioService(); 
 
   void cargarUsuario(Usuario usuario) {
-    nombreController.text = usuario.nombre;
+    nombreController.text = usuario.usuario;
     correoController.text = usuario.correo;
-    contrasenaController.text = usuario.contrasena;
     edadController.text = usuario.edad.toString();
     generoSeleccionado = usuario.idgenero;
   }
 
-  Usuario construirUsuarioEditado(Usuario original) {
-    return Usuario(
-      id: original.id,
-      nombre: nombreController.text,
-      correo: correoController.text,
-      contrasena: contrasenaController.text,
-      edad: int.tryParse(edadController.text) ?? original.edad,
-      vidas: original.vidas,
-      experiencia: original.experiencia,
-      nivelexperiencia: original.nivelexperiencia,
-      idgenero: generoSeleccionado ?? original.idgenero,
-    );
+Future<bool> actualizarUsuario() async {
+  // Paso 1: Obtener token desde la sesión
+  final sesion = Get.find<SesionController>();
+  final token = sesion.getToken;
+
+  if (token == null) {
+    print("⚠️ No hay token en sesión");
+    return false;
   }
 
+  // Recoger los valores del formulario
+  final usuario = nombreController.text.trim();
+  final correo = correoController.text.trim();
+  final edad = int.tryParse(edadController.text.trim()) ?? 0;
+  final generoId = generoSeleccionado ?? 1 ;
 
-}
-Future<void> guardarCambiosEnJson(Usuario usuarioEditado) async {
-  final directory = await getApplicationDocumentsDirectory();
-  final path = '${directory.path}/usuario.json';
-  final file = File(path);
+  // Llamar al servicio
+  final response = await usuarioservice.actualizarUsuario(
+    token: token,
+    usuario: usuario,
+    correo: correo,
+    edad: edad,
+    generoId: generoId,
+  );
 
-  if (!await file.exists()) {
-    // Si el archivo no existe aún (primera vez), lo copia desde assets o lo crea vacío
-    await file.create(recursive: true);
-    await file.writeAsString(jsonEncode([]));
-  }
-
-  final contenido = await file.readAsString();
-  final data = jsonDecode(contenido) as List;
-
-  final index = data.indexWhere((u) => u['id'] == usuarioEditado.id);
-  if (index != -1) {
-    data[index] = usuarioEditado.toJson();
+  // Si fue exitoso, actualiza el usuario en la sesión
+  if (response != null && response.status == 200) {
+    await sesion.actualizardatos(); // <- opcional, si quieres refrescar la sesión
+    return true;
   } else {
-    data.add(usuarioEditado.toJson());
+    return false;
   }
-
-  await file.writeAsString(jsonEncode(data));
 }
+
+}
+
+
